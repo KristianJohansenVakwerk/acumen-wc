@@ -1,11 +1,35 @@
+<script setup lang="ts">
+  import { sectionsDocSchema } from "../../schemaTypes/sections";
+  import Sections from "../components/sections/Sections.vue";
+
+  type QueryCollectionBuilder = {
+    first: () => Promise<unknown>;
+  };
+  declare const queryCollection: (collection: string) => QueryCollectionBuilder;
+
+  const { data: page } = await useAsyncData(() => {
+    return queryCollection("sections").first();
+  });
+
+  if (!page.value) {
+    throw createError({
+      statusCode: 404,
+      statusMessage: "Sections content not found",
+    });
+  }
+
+  const validatedPage = sectionsDocSchema.parse(page.value as unknown);
+  const sections = validatedPage.sections;
+</script>
+
 <template>
   <div>
-    <main class="page-home min-h-screen debug">
-      <h1>Acumen WC Boilerplate</h1>
-      <p class="text text-display">Test output: index page is rendering.</p>
-      <UiTest />
+    <main class="page-home min-h-screen py-giga px-giga">
+      <Sections :sections="sections" />
     </main>
   </div>
 </template>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+  /* Intentionally minimal */
+</style>

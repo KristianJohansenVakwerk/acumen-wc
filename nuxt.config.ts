@@ -62,6 +62,11 @@ export default defineNuxtConfig({
         provider: "local",
         src: "/fonts/GellixRegular.woff",
       },
+      {
+        name: "GellixBlack",
+        provider: "local",
+        src: "/fonts/Gellix-Black.woff",
+      },
     ],
   },
   // Vite

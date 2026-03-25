@@ -1,0 +1,132 @@
+{
+  "sections": [
+    {
+      "id": "hero",
+      "type": "hero",
+      "props": {
+        "title": "Love the World Game. Love the World More.",
+        "subhead": "Your support funds the future.",
+        "videoSrc": "/_include/videos/6508465_Ball Football Rain Village_By_Phong_Croco_Artlist_HD_web.mp4",
+        "richtext": [
+          {
+            "tag": "h3",
+            "text": "You've waited four years for the games to begin, now help us invest in the next 40."
+          },
+          {
+            "tag": "p",
+            "text": "The climate crisis is already here. Yet less than 10% of global climate finance goes toward helping communities adapt to it. Acumen invests in local entrepreneurs building practical solutions for the people most exposed."
+          }
+        ]
+      }
+    },
+    {
+      "id": "donation",
+      "type": "donation",
+      "props": {
+        "title": "Help us change the game.",
+        "richtext": [
+          {
+            "tag": "p",
+            "text": "Help fill our virtual stadium to support entrepreneurs helping low income communities adapt to climate change. Choose your section and back real solutions built for the long term.*"
+          }
+        ],
+        "tiersIntro": "Your contribution supports Acumen's portfolio of work, helping scale solutions where they are needed most.",
+        "tiers": [
+          {
+            "amount": 25,
+            "title": "Become a Fan",
+            "copy": "Join the community and stay connected to the champions building climate resilience around the globe.",
+            "ctaText": "Subscribe"
+          },
+          {
+            "amount": 100,
+            "title": "The Super Sub",
+            "copy": "Every great team has one. You bring belief, momentum, and early support to the long game of climate resilience.",
+            "ctaText": "Donate Now"
+          },
+          {
+            "amount": 500,
+            "title": "The Midfield Engine",
+            "copy": "Always moving the game forward. Your contribution helps strengthen the entrepreneurs building climate resilience where it matters most.",
+            "ctaText": "Donate Now"
+          },
+          {
+            "amount": 1000,
+            "title": "The Backline",
+            "copy": "Built for endurance. Your support helps expand the long-term work of leaders adapting to a changing climate.",
+            "ctaText": "Donate Now"
+          },
+          {
+            "amount": 1000,
+            "title": "Match MVP",
+            "copy": "You raise the level of the game. Your leadership-level support helps accelerate climate resilience across communities and regions.",
+            "ctaText": "Donate Now"
+          }
+        ]
+      }
+    },
+    {
+      "id": "champions",
+      "type": "champions",
+      "props": {
+        "title": "Meet the Game Changers",
+        "alt": "The Champions",
+        "richtext": [
+          {
+            "tag": "p",
+            "text": "Every game has its leaders. Meet the people driving climate adaptation in the communities most exposed to change. Their work proves resilience isn't abstract, it's built, scaled, and sustained by people on the ground."
+          }
+        ],
+        "items": [
+          {
+            "bg": "red",
+            "imageBg": "green-dark",
+            "focusLabel": "S4S Technology (IN, Ag, Gender focus)",
+            "name": "Nidhi Pant",
+            "role": "Co-founder",
+            "country": "India",
+            "company": "S4S Technologies",
+            "blurb": "When nearly 30% of food is lost before leaving the farm, it's more than waste, it's lost income and resilience. Through S4S Technologies, Nidhi equips rural women with solar-powered dryers, turning rejected crops into thriving businesses and lasting economic independence.",
+            "ctaText": "Learn more"
+          },
+          {
+            "bg": "purple-dark",
+            "imageBg": "orange",
+            "focusLabel": "Cropbank (WA, Ag)",
+            "name": "Buffy Okeke-Ojiudu",
+            "image": "/_include/images/Buffy-O-headshot.webp",
+            "role": "Acumen fellow and investee",
+            "country": "Nigeria",
+            "company": "Zebra Cropbank",
+            "blurb": "In Nigeria, billions are lost after harvest, not in the field, but in storage. As founder of Zebra CropBank, Buffy Okeke-Ojiudu builds last-mile infrastructure that helps smallholder farmers store, manage, and sell their crops without forced quick sales, protecting income and building resilience.",
+            "ctaText": "Learn more"
+          },
+          {
+            "bg": "green",
+            "imageBg": "magenta-base",
+            "focusLabel": "Amazonia Emprende (Latam, Ag)",
+            "name": "Julie Hernandez",
+            "image": "/_include/images/Julie-Hernández.webp",
+            "role": "Co-founder and CEO",
+            "country": "Colombia",
+            "company": "Amazonia Emprende",
+            "blurb": "Amazon reforestation is critical to protecting biodiversity and stabilizing the climate. Through the Native Seeds Center, Julie is advancing large-scale restoration by preserving native forest species and developing science-based protocols, helping rebuild ecosystems and strengthening long-term climate resilience.",
+            "ctaText": "Learn more"
+          },
+          {
+            "bg": "blue",
+            "imageBg": "red-dark",
+            "focusLabel": "OMIA (Foundry member, EA, Ag)",
+            "name": "Iganachi Razaki Omia",
+            "image": "/_include/images/Razak–ACUMEN_OMIA_11.webp",
+            "role": "Founder of Omia Agribusiness Development Group",
+            "country": "Uganda",
+            "company": "Omia Agribusiness Development Group",
+            "blurb": "Founder of Omia Agribusiness Development Group, Iganachi Razaki Omia is helping farmers rebuild in the face of climate shocks and displacement. By providing inputs, training, and access to profitable markets, he empowers both host and displaced communities to grow sustainable livelihoods.",
+            "ctaText": "Learn more (Link TBD)"
+          }
+        ]
+      }
+    }
+  ]
+}

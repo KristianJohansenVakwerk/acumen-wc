@@ -34,6 +34,7 @@ $color-magenta: $color-magenta-base;
 
 $base-font-family: "GellixRegular", sans-serif;
 $base-font-family-bold: "GellixBold", sans-serif;
+$base-font-family-black: "GellixBlack", sans-serif;
 $base-font-family-semi-bold: "GellixSemiBold", sans-serif;
 $base-font-family-display: "piepie", sans-serif;
 $base-font-size: 20px;
@@ -68,7 +69,6 @@ $text-lh-heading-md: 45px;
 $text-lh-heading-xl: 71px;
 $text-lh-display-lg: 86px;
 
-
 // Breakpoints
 $breakpoint-sm: 450px;
 $breakpoint-md: 768px;
@@ -77,7 +77,7 @@ $breakpoint-giga: 1920px;
 
 // Spacing
 $sm: 10px;
-$md: 20px;
+$md: 25px;
 $lg: 35px;
 $giga: 80px;
 $giga-2: 120px;

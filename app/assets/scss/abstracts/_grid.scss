@@ -2,6 +2,43 @@
 @use "../base/_mediaQueries" as *;
 @use "./mixins" as *;
 
+// We start the generator at 2, but we still want `span-1` utilities.
+@include add-utility(
+  base,
+  "span-1",
+  (
+    grid-column: span 1,
+  )
+);
+@include add-utility(
+  sm,
+  "span-1",
+  (
+    grid-column: span 1,
+  )
+);
+@include add-utility(
+  md,
+  "span-1",
+  (
+    grid-column: span 1,
+  )
+);
+@include add-utility(
+  lg,
+  "span-1",
+  (
+    grid-column: span 1,
+  )
+);
+@include add-utility(
+  giga,
+  "span-1",
+  (
+    grid-column: span 1,
+  )
+);
+
 // Grid utility generator
 @mixin generate-grid-utilities($start: 2, $end: 12) {
   @for $i from $start through $end {

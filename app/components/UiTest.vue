@@ -79,7 +79,7 @@
     {
       name: "heading-xl",
       label: "Heading XL (64/71)",
-      classes: "text text-heading-xl text-bold debug",
+      classes: "text text-heading-xl text-black debug",
     },
     {
       name: "display-lg",

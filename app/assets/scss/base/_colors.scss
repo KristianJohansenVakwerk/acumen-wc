@@ -38,6 +38,10 @@ $color-utilities: (
   .color-#{$name} {
     color: $value;
   }
+
+  .bg-#{$name} {
+    background-color: $value;
+  }
 }
 
 .color-nav {

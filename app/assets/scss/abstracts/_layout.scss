@@ -5,6 +5,9 @@
 @use "./mixins" as *;
 
 // container
+%u-max-width-md {
+  max-width: 720px;
+}
 %u-container {
   max-width: $container-max-width;
   margin: 0 auto;
@@ -12,6 +15,11 @@
 
 .container {
   @extend %u-container;
+}
+
+.container-md {
+  @extend %u-max-width-md;
+  margin: 0 auto;
 }
 
 $layout_settings_array: (
@@ -34,6 +42,7 @@ $layout_settings_array: (
   "min-height": (
     "screen": 100vh,
   ),
+
   "width": (
     "auto": auto,
     "full": 100%,

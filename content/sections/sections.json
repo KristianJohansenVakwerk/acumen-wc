@@ -5,7 +5,7 @@
       "type": "hero",
       "props": {
         "title": "Love the World Game. Love the World More.",
-        "subhead": "Your support funds the future.",
+        "subhead": "Your support funds the future",
         "videoSrc": "/_include/videos/6508465_Ball Football Rain Village_By_Phong_Croco_Artlist_HD_web.mp4",
         "richtext": [
           {
@@ -87,7 +87,8 @@
             "country": "India",
             "company": "S4S Technologies",
             "blurb": "When nearly 30% of food is lost before leaving the farm, it's more than waste, it's lost income and resilience. Through S4S Technologies, Nidhi equips rural women with solar-powered dryers, turning rejected crops into thriving businesses and lasting economic independence.",
-            "ctaText": "Learn more"
+            "ctaText": "Learn more",
+            "ctaLink": "https://acumen.org/companies/s4s-technologies/"
           },
           {
             "bg": "purple-dark",
@@ -99,7 +100,8 @@
             "country": "Nigeria",
             "company": "Zebra Cropbank",
             "blurb": "In Nigeria, billions are lost after harvest, not in the field, but in storage. As founder of Zebra CropBank, Buffy Okeke-Ojiudu builds last-mile infrastructure that helps smallholder farmers store, manage, and sell their crops without forced quick sales, protecting income and building resilience.",
-            "ctaText": "Learn more"
+            "ctaText": "Learn more",
+            "ctaLink": "https://acumen.org/blog/zebra-cropbanks-1960s-inspired-vision-for-nigerian-agriculture/"
           },
           {
             "bg": "green",
@@ -111,7 +113,8 @@
             "country": "Colombia",
             "company": "Amazonia Emprende",
             "blurb": "Amazon reforestation is critical to protecting biodiversity and stabilizing the climate. Through the Native Seeds Center, Julie is advancing large-scale restoration by preserving native forest species and developing science-based protocols, helping rebuild ecosystems and strengthening long-term climate resilience.",
-            "ctaText": "Learn more"
+            "ctaText": "Learn more",
+            "ctaLink": "https://acumen.org/blog/more-than-150000-hectares-in-the-colombian-amazon-will-be-restored-by-2031-following-the-establishment-of-a-native-seed-center-by-amazonia-emprende/"
           },
           {
             "bg": "blue",
@@ -123,7 +126,8 @@
             "country": "Uganda",
             "company": "Omia Agribusiness Development Group",
             "blurb": "Founder of Omia Agribusiness Development Group, Iganachi Razaki Omia is helping farmers rebuild in the face of climate shocks and displacement. By providing inputs, training, and access to profitable markets, he empowers both host and displaced communities to grow sustainable livelihoods.",
-            "ctaText": "Learn more (Link TBD)"
+            "ctaText": "Learn more (Link TBD)",
+            "ctaLink": "https://google.com"
           }
         ]
       }

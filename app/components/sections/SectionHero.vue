@@ -1,20 +1,16 @@
 <script setup lang="ts">
   import type { SectionItem } from "../../../schemaTypes/sections";
-  import VideoLoop from "../VideoLoop.vue";
-
+  import SectionHeroVideo from "@/components/SectionHeroVideo/SectionHeroVideo.vue";
   defineProps<{
     section: SectionItem;
   }>();
 </script>
 
 <template>
-  <div class="section-hero-container flex column gap-lg">
+  <div class="section-hero-container flex column gap-giga">
     <div class="section-hero relative">
-      <VideoLoop
-        v-if="section.props.videoSrc"
-        :src="section.props.videoSrc"
-        video-class="cover absolute top-0 left-0 w-full h-full"
-      />
+      <SectionHeroVideo :video-src="section.props.videoSrc ?? ''" />
+
       <div class="section-hero__overlay">
         <img
           class="section-hero__icon mb-lg"
@@ -26,7 +22,7 @@
         </h1>
       </div>
     </div>
-    <div class="flex column gap-md container-md">
+    <div class="flex column gap-lg container-md">
       <RichText :richtext="section.props.richtext" />
     </div>
   </div>

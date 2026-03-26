@@ -37,10 +37,19 @@
       class="footer__body px-md md:px-lg footer-py border-1 border-white-tint-light"
     >
       <div class="container grid-12 row-gap-lg lg:row-gap-none gap-none">
-        <div class="span-12 lg:span-5 giga:span-4 mb-lg md:mb-0">
-          <h2 class="text text-footerBig text-bold color-white">
-            {{ footerData.title }}
-          </h2>
+        <div
+          class="span-12 lg:span-5 giga:span-4 mb-lg md:mb-0 flex column gap-md"
+        >
+          <div class="flex column gap-md">
+            <NuxtImg
+              class="footer__logo"
+              src="/_include/ui/Acumen-Logo-Bottom.svg"
+              alt="Acumen Logo"
+            />
+            <h2 class="text text-heading-md text-bold color-white">
+              {{ footerData.title }}
+            </h2>
+          </div>
           <p class="text text-body">{{ footerData.description }}</p>
         </div>
         <div class="none lg:block lg:span-1 giga:span-2" />
@@ -50,7 +59,7 @@
       </div>
     </div>
 
-    <div class="footer__bottom pb-md">
+    <div class="footer__bottom pb-md px-md md:px-lg">
       <div
         class="container grid-12 gap-none md:gap row-gap-md md:row-gap-none items-center"
       >

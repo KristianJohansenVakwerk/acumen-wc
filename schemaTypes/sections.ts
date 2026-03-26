@@ -26,6 +26,7 @@ export const championItemSchema = z.object({
   company: z.string().optional(),
   blurb: z.string(),
   ctaText: z.string(),
+  ctaLink: z.string(),
 });
 
 export const sectionPropsSchema = z

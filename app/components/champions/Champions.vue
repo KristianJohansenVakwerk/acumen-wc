@@ -8,7 +8,7 @@
 </script>
 
 <template>
-  <div class="champions grid grid-2 gap-md">
+  <div class="champions grid grid-2 gap-md container">
     <ChampionCard
       v-for="item in items ?? []"
       :key="`${item.name}-${item.company ?? ''}-${item.country ?? ''}`"

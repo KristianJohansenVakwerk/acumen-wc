@@ -56,7 +56,7 @@
 </script>
 
 <template>
-  <div class="sections flex column gap-md">
+  <div class="sections flex column gap-giga">
     <component
       :is="item.component"
       v-for="item in resolvedSections"

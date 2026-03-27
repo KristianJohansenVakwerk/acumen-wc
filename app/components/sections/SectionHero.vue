@@ -22,6 +22,7 @@
         </h1>
       </div>
     </div>
+
     <div class="flex column gap-lg container-md">
       <RichText :richtext="section.props.richtext" />
     </div>

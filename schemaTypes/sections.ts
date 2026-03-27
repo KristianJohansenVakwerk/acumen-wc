@@ -42,7 +42,7 @@ export const sectionPropsSchema = z
     tiers: z
       .array(
         z.object({
-          amount: z.number(),
+          amount: z.number().nullable(),
           title: z.string(),
           copy: z.string(),
           ctaText: z.string(),

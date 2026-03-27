@@ -33,21 +33,9 @@
         "tiersIntro": "Your contribution supports Acumen's portfolio of work, helping scale solutions where they are needed most.",
         "tiers": [
           {
-            "amount": 25,
-            "title": "Become a Fan",
-            "copy": "Join the community and stay connected to the champions building climate resilience around the globe.",
-            "ctaText": "Subscribe"
-          },
-          {
-            "amount": 100,
-            "title": "The Super Sub",
-            "copy": "Every great team has one. You bring belief, momentum, and early support to the long game of climate resilience.",
-            "ctaText": "Donate Now"
-          },
-          {
-            "amount": 500,
-            "title": "The Midfield Engine",
-            "copy": "Always moving the game forward. Your contribution helps strengthen the entrepreneurs building climate resilience where it matters most.",
+            "amount": 1000,
+            "title": "Match MVP",
+            "copy": "You raise the level of the game. Your leadership-level support helps accelerate climate resilience across communities and regions.",
             "ctaText": "Donate Now"
           },
           {
@@ -57,10 +45,22 @@
             "ctaText": "Donate Now"
           },
           {
-            "amount": 1000,
-            "title": "Match MVP",
-            "copy": "You raise the level of the game. Your leadership-level support helps accelerate climate resilience across communities and regions.",
+            "amount": 500,
+            "title": "The Midfield Engine",
+            "copy": "Always moving the game forward. Your contribution helps strengthen the entrepreneurs building climate resilience where it matters most.",
             "ctaText": "Donate Now"
+          },
+          {
+            "amount": 100,
+            "title": "The Super Sub",
+            "copy": "Every great team has one. You bring belief, momentum, and early support to the long game of climate resilience.",
+            "ctaText": "Donate Now"
+          },
+          {
+            "amount": null,
+            "title": "Become a Fan",
+            "copy": "Join the community and stay connected to the champions building climate resilience around the globe.",
+            "ctaText": "Subscribe"
           }
         ]
       }

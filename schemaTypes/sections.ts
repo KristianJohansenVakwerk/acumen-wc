@@ -44,8 +44,11 @@ export const sectionPropsSchema = z
         z.object({
           amount: z.number().nullable(),
           title: z.string(),
+          tierBg: z.string(),
+          tierIcon: z.string(),
           copy: z.string(),
           ctaText: z.string(),
+          icon: z.string().optional(),
         })
       )
       .optional(),

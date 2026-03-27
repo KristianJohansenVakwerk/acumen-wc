@@ -23,7 +23,7 @@
       <div class="span-6 lg:span-4">
         <DonationIllustration />
       </div>
-      <div class="span-6 lg:span-2 debug">
+      <div class="span-6 lg:span-2">
         <Accordion :items="section.props.tiers" />
       </div>
     </div>

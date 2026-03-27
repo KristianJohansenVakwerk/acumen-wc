@@ -35,30 +35,45 @@
           {
             "amount": 1000,
             "title": "Match MVP",
+            "icon": "/_include/icons/match-mvp.svg",
+            "tierBg": "blue-primary",
+            "tierIcon": "square",
             "copy": "You raise the level of the game. Your leadership-level support helps accelerate climate resilience across communities and regions.",
-            "ctaText": "Donate Now"
+            "ctaText": "Donate"
           },
           {
             "amount": 1000,
             "title": "The Backline",
+            "icon": "/_include/icons/backline.svg",
+            "tierBg": "indigo",
+            "tierIcon": "square",
             "copy": "Built for endurance. Your support helps expand the long-term work of leaders adapting to a changing climate.",
-            "ctaText": "Donate Now"
+            "ctaText": "Donate"
           },
           {
             "amount": 500,
             "title": "The Midfield Engine",
+            "icon": "/_include/icons/midfield-engine.svg",
+            "tierBg": "blue-accent",
+            "tierIcon": "square",
             "copy": "Always moving the game forward. Your contribution helps strengthen the entrepreneurs building climate resilience where it matters most.",
-            "ctaText": "Donate Now"
+            "ctaText": "Donate"
           },
           {
             "amount": 100,
             "title": "The Super Sub",
+            "icon": "/_include/icons/super-sub.svg",
+            "tierBg": "cyan",
+            "tierIcon": "square",
             "copy": "Every great team has one. You bring belief, momentum, and early support to the long game of climate resilience.",
-            "ctaText": "Donate Now"
+            "ctaText": "Donate"
           },
           {
             "amount": null,
             "title": "Become a Fan",
+            "icon": "/_include/icons/fan.svg",
+            "tierBg": "red-dark",
+            "tierIcon": "square",
             "copy": "Join the community and stay connected to the champions building climate resilience around the globe.",
             "ctaText": "Subscribe"
           }

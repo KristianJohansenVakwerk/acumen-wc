@@ -4,7 +4,8 @@
   export interface AccordionEntry {
     title: string;
     amount: number | string | null;
-    text: string;
+    tierBg: string;
+    tierIcon: string;
     copy: string;
     ctaText: string;
     icon: string;
@@ -21,12 +22,12 @@
   }>();
 
   const defaultOpenIndex = computed(() =>
-    props.items.findIndex((item) => item.isOpenDefault),
+    props.items.findIndex((item) => item.isOpenDefault)
   );
   const activeIndex = ref(
     typeof props.openIndex === "number"
       ? props.openIndex
-      : defaultOpenIndex.value,
+      : defaultOpenIndex.value
   );
 
   watch(
@@ -35,7 +36,7 @@
       if (typeof nextOpenIndex === "number") {
         activeIndex.value = nextOpenIndex;
       }
-    },
+    }
   );
 
   const onToggle = (index: number) => {
@@ -49,10 +50,11 @@
   <div class="accordion flex column">
     <AccordionItem
       v-for="(item, index) in items"
-      :key="`${item.title}-${index}`"
+      :key="`${index}`"
       :title="item.title"
       :amount="item.amount"
-      :text="item.text"
+      :tier-bg="item.tierBg"
+      :tier-icon="item.tierIcon"
       :copy="item.copy"
       :cta-text="item.ctaText"
       :icon="item.icon"

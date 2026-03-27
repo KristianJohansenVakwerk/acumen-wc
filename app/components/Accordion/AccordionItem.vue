@@ -1,10 +1,18 @@
 <script setup lang="ts">
-  import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch } from "vue";
+  import {
+    computed,
+    nextTick,
+    onBeforeUnmount,
+    onMounted,
+    ref,
+    watch,
+  } from "vue";
 
   const props = defineProps<{
     title: string;
     amount: number | string | null;
-    text: string;
+    tierBg: string;
+    tierIcon: string;
     copy: string;
     ctaText: string;
     icon: string;
@@ -23,6 +31,8 @@
   const bodyStyles = computed(() => ({
     maxHeight: bodyMaxHeight.value,
   }));
+
+  const bgClass = computed(() => `bg-${props.tierBg}`);
 
   const updateBodyHeight = () => {
     const contentHeight = bodyContentRef.value?.scrollHeight ?? 0;
@@ -43,6 +53,7 @@
 
     if (bodyContentRef.value && typeof ResizeObserver !== "undefined") {
       resizeObserver = new ResizeObserver(() => {
+        console.log("resizeObserver");
         updateBodyHeight();
       });
       resizeObserver.observe(bodyContentRef.value);
@@ -54,7 +65,7 @@
   });
 
   watch(
-    () => [props.text, props.copy, props.openIndex],
+    () => [props.copy, props.openIndex],
     async () => {
       await nextTick();
       updateBodyHeight();
@@ -63,24 +74,55 @@
 </script>
 
 <template>
-  <div class="accordion-item" :class="{ 'is-open': isOpen }">
+  <div class="accordion-item color-white" :class="{ 'is-open': isOpen }">
     <button
-      class="accordion-item__header"
+      class="accordion-item__header debug"
+      :class="bgClass"
       type="button"
       :aria-expanded="isOpen"
       @click="toggleOpen"
     >
-      <span class="accordion-item__title">{{ title }}</span>
-      <span v-if="amount !== null" class="accordion-item__amount">{{ amount }}</span>
+      <span class="accordion-item__title-wrap">
+        <NuxtImg
+          v-if="icon"
+          class="accordion-item__tier-icon"
+          :src="icon"
+          alt=""
+          width="16"
+          height="16"
+        />
+        <span class="accordion-item__title text text-body-md text-bold">{{
+          title
+        }}</span>
+      </span>
+      <span
+        v-if="amount !== null"
+        class="accordion-item__amount text text-body-md text-bold"
+        >${{ amount }} USD</span
+      >
       <div v-else class="accordion-item__amount-empty" aria-hidden="true" />
     </button>
 
-    <div class="accordion-item__body" :style="bodyStyles">
-      <div ref="bodyContentRef" class="accordion-item__body-content">
-        <div class="accordion-item__icon" aria-hidden="true" />
-        <p class="accordion-item__text">{{ text }}</p>
-        <p class="accordion-item__copy text text-body-sm">{{ copy }}</p>
-        <button class="accordion-item__button" type="button">
+    <div class="accordion-item__body" :class="bgClass" :style="bodyStyles">
+      <div
+        ref="bodyContentRef"
+        class="accordion-item__body-content flex column gap-lg justify-center items-center"
+      >
+        <NuxtImg
+          v-if="icon"
+          class="accordion-item__body-content__icon"
+          :src="icon"
+          alt=""
+          width="90"
+          height="90"
+        />
+        <p class="accordion-item__copy text text-body-md text-bold">
+          {{ copy }}
+        </p>
+        <button
+          class="accordion-item__button bg-white color-black text text-heading-sm text-black"
+          type="button"
+        >
           {{ ctaText }}
         </button>
       </div>
@@ -90,10 +132,7 @@
 
 <style scoped lang="scss">
   .accordion-item {
-    border: 1px solid #d7d7d7;
-    border-radius: 14px;
     overflow: hidden;
-    background: #fff;
 
     &__header {
       width: 100%;
@@ -102,23 +141,25 @@
       justify-content: space-between;
       gap: 16px;
       padding: 16px 18px;
-      background: transparent;
       border: 0;
       text-align: left;
       cursor: pointer;
+      color: inherit;
+      border-radius: 15px;
+      // border-bottom: 3px dashed black
     }
 
-    &__title {
-      font-size: 1rem;
-      line-height: 1.3;
-      font-weight: 600;
+    &__title-wrap {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      min-width: 0;
     }
 
-    &__amount {
-      font-size: 1rem;
-      line-height: 1.3;
-      font-weight: 700;
-      white-space: nowrap;
+    &__tier-icon {
+      width: 16px;
+      height: auto;
+      flex-shrink: 0;
     }
 
     &__amount-empty {
@@ -131,12 +172,16 @@
       max-height: 0;
       overflow: hidden;
       transition: max-height 220ms ease;
-      border-top: 1px solid transparent;
+      border-radius: 15px;
     }
 
     &__body-content {
-      display: grid;
-      gap: 12px;
+      &__icon {
+        width: 90px;
+        height: 90px;
+        object-fit: contain;
+      }
+
       padding: 16px 18px 18px;
     }
 
@@ -147,31 +192,18 @@
       border-radius: 2px;
     }
 
-    &__text {
-      margin: 0;
-      line-height: 1.5;
-    }
-
     &__copy {
       margin: 0;
     }
 
     &__button {
       justify-self: start;
-      border: 1px solid #111;
-      background: #111;
-      color: #fff;
       border-radius: 999px;
-      padding: 8px 14px;
-      font-size: 0.9rem;
-      line-height: 1.2;
-      cursor: pointer;
-    }
-  }
+      padding: 10px 15px 8px 15px;
+      line-height: 1;
 
-  .accordion-item.is-open {
-    .accordion-item__body {
-      border-top-color: #d7d7d7;
+      min-width: 200px;
+      cursor: pointer;
     }
   }
 </style>

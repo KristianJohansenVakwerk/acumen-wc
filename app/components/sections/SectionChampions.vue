@@ -7,7 +7,7 @@
 </script>
 
 <template>
-  <div class="section-champions flex column gap-giga">
+  <div class="section-champions flex column gap-giga px-giga">
     <div class="container-md flex column gap-lg">
       <h2
         class="text text-display-lg text-display color-blue text-align-center"
@@ -18,6 +18,6 @@
       <RichText :richtext="section.props.richtext" />
     </div>
 
-    <Champions :items="section.props.items" />
+    <Champions :items="section.props.items ?? []" />
   </div>
 </template>

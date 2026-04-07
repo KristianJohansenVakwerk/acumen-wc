@@ -53,7 +53,6 @@
 
     if (bodyContentRef.value && typeof ResizeObserver !== "undefined") {
       resizeObserver = new ResizeObserver(() => {
-        console.log("resizeObserver");
         updateBodyHeight();
       });
       resizeObserver.observe(bodyContentRef.value);
@@ -69,7 +68,7 @@
     async () => {
       await nextTick();
       updateBodyHeight();
-    },
+    }
   );
 </script>
 

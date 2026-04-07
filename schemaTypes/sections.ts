@@ -32,7 +32,7 @@ export const championItemSchema = z.object({
 
 export const sectionPropsSchema = z
   .object({
-    title: z.string(),
+    title: z.string().optional(),
     // Hero
     subhead: z.string().optional(),
     richtext: richTextBlocksSchema.optional(),
@@ -69,10 +69,18 @@ export const sectionPropsSchema = z
 export const sectionItemSchema = z
   .object({
     id: z.string(),
-    type: z.string(),
-    props: sectionPropsSchema,
+    // Optional so sections can be as small as `{ "id": "banner" }`.
+    // When missing, we treat `type` as the same value as `id`.
+    type: z.string().optional(),
+    // Optional so lightweight sections don't need `props`.
+    props: sectionPropsSchema.optional(),
   })
-  .passthrough();
+  .passthrough()
+  .transform((section) => ({
+    ...section,
+    type: section.type ?? section.id,
+    props: section.props ?? {},
+  }));
 
 export const sectionsDocSchema = z
   .object({

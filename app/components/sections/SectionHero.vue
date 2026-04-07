@@ -7,7 +7,7 @@
 </script>
 
 <template>
-  <div class="section-hero-container flex column gap-giga">
+  <div class="section-hero-container flex column gap-giga px-giga">
     <div class="section-hero relative">
       <SectionHeroVideo :video-src="section.props.videoSrc ?? ''" />
 

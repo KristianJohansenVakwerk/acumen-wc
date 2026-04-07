@@ -24,7 +24,7 @@
 
 <template>
   <div>
-    <main class="page-home min-h-screen py-giga px-giga">
+    <main class="page-home min-h-screen py-giga">
       <Sections :sections="sections" />
     </main>
   </div>

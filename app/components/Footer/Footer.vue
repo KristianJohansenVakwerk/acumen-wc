@@ -59,9 +59,9 @@
       </div>
     </div>
 
-    <div class="footer__bottom pb-md px-md md:px-lg">
+    <div class="footer__bottom px-md md:px-lg">
       <div
-        class="container grid-12 gap-none md:gap row-gap-md md:row-gap-none items-center"
+        class="container grid-12 gap-none md:gap row-gap-md md:row-gap-none items-end"
       >
         <div class="span-12 md:span-6 lg:span-4">
           <NuxtImg
@@ -73,9 +73,34 @@
         <div
           class="span-12 md:span-6 lg:span-8 justify-self-start lg:justify-self-end"
         >
-          <p class="text text-small color-white">
-            Footer scaffold imported from old project
-          </p>
+          <nav>
+            <ul class="flex row gap-md">
+              <li>
+                <NuxtLink
+                  href="https://www.acumen.org"
+                  target="_blank"
+                  class="text text-body-sm"
+                  >Privacy Policy</NuxtLink
+                >
+              </li>
+              <li>
+                <NuxtLink
+                  href="https://www.acumen.org"
+                  target="_blank"
+                  class="text text-body-sm"
+                  >Terms of Use</NuxtLink
+                >
+              </li>
+              <li>
+                <NuxtLink
+                  href="https://www.acumen.org"
+                  target="_blank"
+                  class="text text-body-sm"
+                  >Site Credits</NuxtLink
+                >
+              </li>
+            </ul>
+          </nav>
         </div>
       </div>
     </div>
@@ -84,6 +109,8 @@
 
 <style scoped lang="scss">
   .footer {
+    padding-bottom: 6.25rem;
+
     .footer-py {
       padding-top: 30px;
       padding-bottom: 60px;

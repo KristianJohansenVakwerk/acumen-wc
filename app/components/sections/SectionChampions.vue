@@ -18,6 +18,6 @@
       <RichText :richtext="section.props.richtext" />
     </div>
 
-    <Champions :items="section.props.items" />
+    <Champions :items="section.props.items ?? []" />
   </div>
 </template>

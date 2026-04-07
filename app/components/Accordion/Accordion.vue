@@ -43,7 +43,9 @@
   );
 
   const defaultOpenId = computed(() => {
-    const defaultItem = normalizedItems.value.find((item) => item.isOpenDefault);
+    const defaultItem = normalizedItems.value.find(
+      (item) => item.isOpenDefault
+    );
     return defaultItem?.id ?? null;
   });
 

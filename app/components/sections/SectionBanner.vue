@@ -1,5 +1,9 @@
 <script setup lang="ts">
   import type { SectionItem } from "../../../schemaTypes/sections";
+  import backline from "@/components/icons/backline.vue";
+  import midfieldEngine from "@/components/icons/midfield-engine.vue";
+  import superSub from "@/components/icons/super-sub.vue";
+  import matchMvp from "@/components/icons/match-mvp.vue";
   import {
     computed,
     nextTick,
@@ -71,7 +75,7 @@
     async () => {
       await nextTick();
       recompute();
-    },
+    }
   );
 
   watch(speedPxPerSecond, () => {
@@ -84,6 +88,14 @@
     for (let i = 0; i < repeatCount.value; i++) out.push(...items);
     return out;
   });
+
+  const checkBatchIcon = (name?: string) => {
+    if (name === "backline") return backline;
+    if (name === "midfield-engine") return midfieldEngine;
+    if (name === "super-sub") return superSub;
+    if (name === "match-mvp") return matchMvp;
+    return null;
+  };
 </script>
 
 <template>
@@ -98,14 +110,10 @@
     <div
       v-else
       ref="containerEl"
-      class="marquee"
+      class="marquee bg-blue color-white text text-body text-bold"
       :style="{ '--duration': `${durationSeconds}s` }"
     >
-      <template v-if="(data?.length ?? 0) === 0">
-        <div class="section-banner__state container-md">No banner items</div>
-      </template>
-
-      <template v-else>
+      <template v-if="(data?.length ?? 0) >= 5">
         <!-- Hidden, single-set measurement row -->
         <div ref="measureEl" class="marquee__measure" aria-hidden="true">
           <span
@@ -113,7 +121,10 @@
             :key="`m-${idx}`"
             class="marquee__item"
           >
-            <strong class="marquee__batch">{{ item.batch }}</strong>
+            <span class="marquee__batch">
+              <component :is="checkBatchIcon(item.batch)" color="#FF3500" />
+            </span>
+
             <span class="marquee__name">{{ item.name }}</span>
           </span>
         </div>
@@ -126,7 +137,9 @@
               :key="`a-${idx}`"
               class="marquee__item"
             >
-              <strong class="marquee__batch">{{ item.batch }}</strong>
+              <span class="marquee__batch">
+                <component :is="checkBatchIcon(item.batch)" color="#FF3500" />
+              </span>
               <span class="marquee__name">{{ item.name }}</span>
             </span>
           </div>
@@ -136,7 +149,9 @@
               :key="`b-${idx}`"
               class="marquee__item"
             >
-              <strong class="marquee__batch">{{ item.batch }}</strong>
+              <span class="marquee__batch">
+                <component :is="checkBatchIcon(item.batch)" color="#FF3500" />
+              </span>
               <span class="marquee__name">{{ item.name }}</span>
             </span>
           </div>
@@ -148,19 +163,14 @@
 
 <style scoped lang="scss">
   .section-banner__state {
-    padding: $lg 0;
+    padding: clamp(12px, 2vw, 18px) 0;
   }
 
   .marquee {
     position: relative;
     overflow: hidden;
     width: 100%;
-    padding: clamp(12px, 2.2vw, 24px) 0;
-    font-size: clamp(14px, 1.2vw, 18px);
-    line-height: 1.2;
-    background: rgba(0, 0, 0, 0.03);
-    border-top: 1px solid rgba(0, 0, 0, 0.08);
-    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    padding: clamp(12px, 2vw, 18px) 0;
   }
 
   .marquee__inner {
@@ -168,24 +178,30 @@
     width: max-content;
     will-change: transform;
     animation: marquee var(--duration, 20s) linear infinite;
+
+    &:hover {
+      animation-play-state: paused;
+    }
   }
 
   .marquee__track {
     display: flex;
     align-items: center;
-    gap: clamp(12px, 2vw, 28px);
-    padding-right: clamp(12px, 2vw, 28px);
+    gap: clamp(12px, 2vw, 23px);
+    padding-right: clamp(12px, 2vw, 23px);
     white-space: nowrap;
   }
 
   .marquee__item {
     display: inline-flex;
-    align-items: baseline;
-    gap: clamp(6px, 1vw, 12px);
+    align-items: center;
+    gap: clamp(12px, 1vw, 24px);
   }
 
   .marquee__batch {
-    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .marquee__name {

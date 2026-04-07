@@ -1,5 +1,6 @@
 <script setup lang="ts">
   import type { SectionItem } from "../../../schemaTypes/sections";
+  import type { AccordionEntry } from "../Accordion/Accordion.vue";
   import DonationIllustration from "../illustrations/DonationIllustration.vue";
   import { ref } from "vue";
 
@@ -7,8 +8,7 @@
     section: SectionItem;
   }>();
 
-  const openId = ref<string | null>(null);
-
+  const openId = ref<string | null>("matchMvp");
   function onIllustrationClick(option: { id: string }) {
     openId.value = option.id;
   }
@@ -31,7 +31,10 @@
         <DonationIllustration @click="onIllustrationClick" />
       </div>
       <div class="span-6 lg:span-2">
-        <Accordion v-model:open-id="openId" :items="section.props.tiers" />
+        <Accordion
+          v-model:open-id="openId"
+          :items="section.props.tiers as AccordionEntry[]"
+        />
       </div>
     </div>
   </div>

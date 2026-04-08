@@ -25,9 +25,7 @@
   <footer class="footer theme theme-footer relative z-99">
     <div class="footer__top" />
 
-    <div
-      class="footer__body px-md md:px-lg footer-py border-1 border-white-tint-light"
-    >
+    <div class="footer__body px-md md:px-lg footer-py">
       <div class="container grid-12 row-gap-lg lg:row-gap-none gap-none">
         <div
           class="span-12 lg:span-5 giga:span-4 mb-lg md:mb-0 flex column gap-md"

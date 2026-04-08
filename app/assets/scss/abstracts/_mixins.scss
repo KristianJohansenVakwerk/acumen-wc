@@ -1,4 +1,5 @@
 @use "sass:map";
+@use "sass:list";
 @use "../abstracts/_variables" as *;
 @use "../base/_mediaQueries" as *;
 
@@ -10,7 +11,13 @@ $utilities-md: ();
 $utilities-lg: ();
 $utilities-giga: ();
 
-@mixin add-utility($breakpoint, $class, $props) {
+$utilities-hover-base: ();
+$utilities-hover-sm: ();
+$utilities-hover-md: ();
+$utilities-hover-lg: ();
+$utilities-hover-giga: ();
+
+@mixin add-utility($breakpoint, $class, $props, $variants: ()) {
   @if $breakpoint == base {
     $utilities-base: map.merge(
       $utilities-base,
@@ -18,6 +25,15 @@ $utilities-giga: ();
         $class: $props,
       )
     ) !global;
+
+    @if list.index($variants, hover) {
+      $utilities-hover-base: map.merge(
+        $utilities-hover-base,
+        (
+          $class: $props,
+        )
+      ) !global;
+    }
   } @else if $breakpoint == sm {
     $utilities-sm: map.merge(
       $utilities-sm,
@@ -25,6 +41,15 @@ $utilities-giga: ();
         $class: $props,
       )
     ) !global;
+
+    @if list.index($variants, hover) {
+      $utilities-hover-sm: map.merge(
+        $utilities-hover-sm,
+        (
+          $class: $props,
+        )
+      ) !global;
+    }
   } @else if $breakpoint == md {
     $utilities-md: map.merge(
       $utilities-md,
@@ -32,6 +57,15 @@ $utilities-giga: ();
         $class: $props,
       )
     ) !global;
+
+    @if list.index($variants, hover) {
+      $utilities-hover-md: map.merge(
+        $utilities-hover-md,
+        (
+          $class: $props,
+        )
+      ) !global;
+    }
   } @else if $breakpoint == lg {
     $utilities-lg: map.merge(
       $utilities-lg,
@@ -39,6 +73,15 @@ $utilities-giga: ();
         $class: $props,
       )
     ) !global;
+
+    @if list.index($variants, hover) {
+      $utilities-hover-lg: map.merge(
+        $utilities-hover-lg,
+        (
+          $class: $props,
+        )
+      ) !global;
+    }
   } @else if $breakpoint == giga {
     $utilities-giga: map.merge(
       $utilities-giga,
@@ -46,6 +89,15 @@ $utilities-giga: ();
         $class: $props,
       )
     ) !global;
+
+    @if list.index($variants, hover) {
+      $utilities-hover-giga: map.merge(
+        $utilities-hover-giga,
+        (
+          $class: $props,
+        )
+      ) !global;
+    }
   }
 }
 
@@ -56,6 +108,62 @@ $utilities-giga: ();
     .#{$class} {
       @each $prop, $val in $props {
         #{$prop}: #{$val};
+      }
+    }
+  }
+
+  // Hover variants (opt-in via add-utility(..., $variants: (hover)))
+  @include can-hover {
+    // Base hover
+    @each $class, $props in $utilities-hover-base {
+      .hover\:#{$class}:hover {
+        @each $prop, $val in $props {
+          #{$prop}: #{$val};
+        }
+      }
+    }
+
+    // sm hover
+    @include sm-up {
+      @each $class, $props in $utilities-hover-sm {
+        .sm\:hover\:#{$class}:hover {
+          @each $prop, $val in $props {
+            #{$prop}: #{$val};
+          }
+        }
+      }
+    }
+
+    // md hover
+    @include md-up {
+      @each $class, $props in $utilities-hover-md {
+        .md\:hover\:#{$class}:hover {
+          @each $prop, $val in $props {
+            #{$prop}: #{$val};
+          }
+        }
+      }
+    }
+
+    // lg hover
+    @include lg-up {
+      @each $class, $props in $utilities-hover-lg {
+        .lg\:hover\:#{$class}:hover {
+          @each $prop, $val in $props {
+            #{$prop}: #{$val};
+          }
+        }
+      }
+    }
+
+    // giga hover
+    @include giga-up {
+      @each $class, $props in $utilities-hover-giga {
+        .giga\:hover\:#{$class}:hover {
+          @each $prop, $val in $props {
+            #{$prop}: #{$val};
+          }
+        }
       }
     }
   }

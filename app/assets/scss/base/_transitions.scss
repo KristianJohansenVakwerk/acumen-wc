@@ -1,0 +1,80 @@
+@use "sass:map";
+
+@use "../abstracts/_variables" as *;
+@use "../abstracts/_mixins" as *;
+
+$transition-properties: (
+  "all": all,
+  "colors": (color, background-color, border-color, text-decoration-color, fill, stroke),
+  "opacity": opacity,
+  "transform": transform,
+);
+
+$transition-durations: (
+  "fast": 150ms,
+  "default": 400ms,
+  "slow": 800ms,
+);
+
+$transition-easings: (
+  "none": $ease-none,
+  "power1-in": $ease-power1-in,
+  "power1-out": $ease-power1-out,
+  "power1-in-out": $ease-power1-in-out,
+  "power2-in": $ease-power2-in,
+  "power2-out": $ease-power2-out,
+  "power2-in-out": $ease-power2-in-out,
+  "power3-in": $ease-power3-in,
+  "power3-out": $ease-power3-out,
+  "power3-in-out": $ease-power3-in-out,
+  "power4-in": $ease-power4-in,
+  "power4-out": $ease-power4-out,
+  "power4-in-out": $ease-power4-in-out,
+  "sine-in": $ease-sine-in,
+  "sine-out": $ease-sine-out,
+  "sine-in-out": $ease-sine-in-out,
+  "expo-in": $ease-expo-in,
+  "expo-out": $ease-expo-out,
+  "expo-in-out": $ease-expo-in-out,
+  "circ-in": $ease-circ-in,
+  "circ-out": $ease-circ-out,
+  "circ-in-out": $ease-circ-in-out,
+  "back-in": $ease-back-in,
+  "back-out": $ease-back-out,
+  "back-in-out": $ease-back-in-out,
+);
+
+// Basic transition shorthands
+@each $name, $prop in $transition-properties {
+  @include add-utility(
+    base,
+    "transition-#{$name}",
+    (
+      transition-property: $prop,
+      transition-duration: map.get($transition-durations, "default"),
+      transition-timing-function: $ease-power2-out,
+    )
+  );
+}
+
+// Duration utilities (pair with `transition-*`)
+@each $name, $duration in $transition-durations {
+  @include add-utility(
+    base,
+    "duration-#{$name}",
+    (
+      transition-duration: $duration,
+    )
+  );
+}
+
+// Easing utilities (pair with `transition-*`)
+@each $name, $ease in $transition-easings {
+  @include add-utility(
+    base,
+    "ease-#{$name}",
+    (
+      transition-timing-function: $ease,
+    )
+  );
+}

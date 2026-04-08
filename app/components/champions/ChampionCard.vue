@@ -109,7 +109,6 @@
       border-radius: 5px;
 
       figure {
-        background: red;
         height: auto;
         width: 100%;
       }

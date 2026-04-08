@@ -35,13 +35,23 @@ $color-utilities: (
 );
 
 @each $name, $value in $color-utilities {
-  .color-#{$name} {
-    color: $value;
-  }
+  @include add-utility(
+    base,
+    "color-#{$name}",
+    (
+      color: $value,
+    ),
+    (hover)
+  );
 
-  .bg-#{$name} {
-    background-color: $value;
-  }
+  @include add-utility(
+    base,
+    "bg-#{$name}",
+    (
+      background-color: $value,
+    ),
+    (hover)
+  );
 }
 
 .color-nav {

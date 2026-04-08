@@ -2,12 +2,12 @@
 
 @for $i from 1 through 3 {
   .border-#{$i} {
-    border-top: #{$i}px solid;
+    border: #{$i}px solid;
   }
 }
 
 $color-map: (
-  "white-tint-light": $color-white-tint-light,
+  "white": $color-white,
 );
 
 @each $name, $value in $color-map {

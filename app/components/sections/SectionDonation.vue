@@ -45,7 +45,7 @@
       },
       {
         threshold: [0],
-      }
+      },
     );
 
     observer.observe(sectionEl.value);
@@ -64,7 +64,7 @@
 
   <div
     ref="sectionEl"
-    class="section section-donation flex column gap-giga px-giga"
+    class="section section-donation flex column gap-giga px-giga relative z-10"
   >
     <div class="container-md flex column gap-lg">
       <h2

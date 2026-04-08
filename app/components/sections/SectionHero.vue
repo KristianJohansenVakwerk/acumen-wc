@@ -1,53 +1,59 @@
 <script setup lang="ts">
   import type { SectionItem } from "../../../schemaTypes/sections";
   import SectionHeroVideo from "@/components/SectionHeroVideo/SectionHeroVideo.vue";
+  import { ref } from "vue";
   defineProps<{
     section: SectionItem;
   }>();
+
+  const headerLogoVisible = ref(false);
+
+  function onHeaderLogoVisible(visible: boolean) {
+    headerLogoVisible.value = visible;
+  }
 </script>
 
 <template>
-  <div class="section section-hero-container flex column gap-giga">
-    <div class="section-hero relative">
-      <SectionHeroVideo :video-src="section.props.videoSrc ?? ''" />
-
-      <div
-        class="section-hero__overlay flex row justify-space-between items-end"
-      >
-        <div>
-          <img
-            class="section-hero__icon mb-lg"
-            src="/_include/icons/hero_icon.svg"
-            :alt="section.props.title"
-          />
-          <h1 class="text text-heading-xl text-black color-white">
-            {{ section.props.subhead }}
-          </h1>
-        </div>
-
-        <div
-          class="flex column gap-md h-full justify-space-between items-center py-md"
-          style="width: 19.1%"
-        >
-          <NuxtImg
-            class="logo"
-            src="/_include/ui/Acumen-Logo-Top.svg"
-            alt="Acumen"
-          />
-
-          <div class="flex column items-center justify-center gap">
-            <span class="text text-body text-bold color-white">Swipe down</span>
-            <NuxtImg
-              src="/_include/icons/fan.svg"
-              alt="Swipe down"
-              style="width: 48px; height: auto"
-            />
-          </div>
-        </div>
+  <div>
+    <div
+      class="section section-hero-container flex column gap-giga fixed top-0 left-0 w-full h-auto z-10"
+    >
+      <div class="section-hero relative">
+        <SectionHeroVideo
+          :video-src="section.props.videoSrc ?? ''"
+          :title="section.props.title"
+          :subhead="section.props.subhead"
+          @header-logo-visible="onHeaderLogoVisible"
+        />
       </div>
     </div>
 
-    <div class="flex column gap-lg container-md">
+    <div
+      ref="headerLogoRef"
+      class="flex absolute top-0 left-0 transition-opacity duration-300 ease-out z-0"
+      :class="
+        headerLogoVisible ? 'opacity-100' : 'opacity-0 pointer-events-none'
+      "
+      style="
+        width: 183px;
+        height: 51px;
+        margin-top: 85vh;
+        left: 64px;
+        top: 50px;
+      "
+    >
+      <NuxtImg
+        src="/_include/ui/header-logo.svg"
+        alt="Acumen"
+        width="183"
+        height="51"
+      />
+    </div>
+
+    <div
+      class="flex column gap-lg container-md relative z-10"
+      style="margin-top: calc(85vh + 100px)"
+    >
       <RichText :richtext="section.props.richtext" />
     </div>
   </div>
@@ -55,27 +61,8 @@
 
 <style scoped lang="scss">
   .section-hero-container {
+    padding-top: 50px;
     padding-left: 64px;
     padding-right: 64px;
-  }
-  .section-hero__overlay {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    left: 0px;
-    bottom: 0px;
-    padding: 0 0px 40px 30px;
-    z-index: 1;
-
-    .logo {
-      width: 100px;
-      height: auto;
-    }
-  }
-
-  .section-hero__icon {
-    display: block;
-    width: 245px;
-    height: auto;
   }
 </style>

@@ -7,7 +7,9 @@
 </script>
 
 <template>
-  <div class="section section-champions flex column gap-giga px-giga">
+  <div
+    class="section section-champions flex column gap-giga px-giga relative z-10"
+  >
     <div class="container-md flex column gap-lg">
       <h2
         class="text text-display-lg text-display color-blue text-align-center"

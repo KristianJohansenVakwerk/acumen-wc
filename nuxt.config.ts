@@ -20,7 +20,7 @@ export default defineNuxtConfig({
   },
   app: {
     head: {
-      title: "Acumen WC",
+      title: "Acumen – Love the world game. Love the world more.",
       htmlAttrs: {
         lang: "en-GB",
       },

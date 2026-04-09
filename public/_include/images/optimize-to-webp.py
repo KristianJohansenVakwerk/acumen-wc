@@ -22,6 +22,50 @@ def format_bytes(n: int) -> str:
     return f"{f:.{digits}f} {units[i]}"
 
 
+def gather_source_files(paths: list[str], only: set[str]) -> list[Path]:
+    if not paths:
+        source_files = [
+            p for p in IMAGES_DIR.iterdir() if p.is_file() and p.suffix.lower() in CONVERT_EXTS
+        ]
+        if only:
+            source_files = [p for p in source_files if p.name in only]
+        return sorted(source_files, key=lambda p: p.name)
+
+    out: list[Path] = []
+    seen: set[Path] = set()
+
+    for raw in paths:
+        p = Path(raw).expanduser()
+        if not p.exists():
+            raise SystemExit(f"Path does not exist: {raw}")
+
+        if p.is_dir():
+            files = [
+                c for c in p.iterdir() if c.is_file() and c.suffix.lower() in CONVERT_EXTS
+            ]
+            if only:
+                files = [c for c in files if c.name in only]
+            files = sorted(files, key=lambda x: x.name)
+        else:
+            if p.suffix.lower() not in CONVERT_EXTS:
+                continue
+            if only and p.name not in only:
+                continue
+            files = [p]
+
+        for f in files:
+            try:
+                key = f.resolve()
+            except Exception:
+                key = f
+            if key in seen:
+                continue
+            seen.add(key)
+            out.append(f)
+
+    return out
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(
         description="Convert JPG/PNG files in this folder to high-quality WebP."
@@ -56,6 +100,11 @@ def main() -> int:
         default=[],
         help="Only process a specific filename (repeatable). Example: --only 'Razak–ACUMEN_OMIA_11.jpg'",
     )
+    parser.add_argument(
+        "paths",
+        nargs="*",
+        help="Optional input file(s) and/or directory(ies) to process. Defaults to this script's folder.",
+    )
     args = parser.parse_args()
 
     if args.quality < 1 or args.quality > 100:
@@ -72,20 +121,14 @@ def main() -> int:
         print("  python -m pip install --upgrade pip pillow")
         return 2
 
-    source_files = sorted(
-        [
-            p
-            for p in IMAGES_DIR.iterdir()
-            if p.is_file() and p.suffix.lower() in CONVERT_EXTS
-        ],
-        key=lambda p: p.name,
-    )
-    if args.only:
-        only_set = set(args.only)
-        source_files = [p for p in source_files if p.name in only_set]
+    only_set = set(args.only) if args.only else set()
+    source_files = gather_source_files(args.paths, only_set)
 
     if not source_files:
-        print(f"No JPG/PNG images found in {IMAGES_DIR}")
+        if args.paths:
+            print("No JPG/PNG images found in the provided path(s).")
+        else:
+            print(f"No JPG/PNG images found in {IMAGES_DIR}")
         return 0
 
     converted = 0
@@ -151,6 +194,5 @@ def main() -> int:
 
 
 if __name__ == "__main__":
-    os.chdir(IMAGES_DIR)
     raise SystemExit(main())
 

@@ -22,7 +22,7 @@
       <div ref="sectionHeroVideoRef" class="section-hero__videos relative z-20">
         <SectionHeroVideo
           :video-src="section.props.videoSrc ?? ''"
-          :video-poster="section.props.videoPoster"
+          :video-poster="section.props.videoPoster as string"
           :title="section.props.title"
           :subhead="section.props.subhead"
           @header-logo-visible="onHeaderLogoVisible"

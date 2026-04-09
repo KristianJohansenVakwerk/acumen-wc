@@ -1,10 +1,13 @@
 <script setup lang="ts">
-  import { computed } from "vue";
+  import { computed, ref } from "vue";
   import type { ChampionItem } from "../../../schemaTypes/sections";
 
   const props = defineProps<{
     item: ChampionItem;
   }>();
+
+  const cardEl = ref<HTMLElement | null>(null);
+  const contentEl = ref<HTMLElement | null>(null);
 
   const frameByBg: Record<string, string> = {
     red: "/_include/ui/champion-frame.svg",
@@ -15,11 +18,20 @@
   };
 
   const frameUrl = computed(() => frameByBg[props.item.bg] ?? frameByBg.red);
+
+  function swipeToLearnMore() {
+    if (!cardEl.value || !contentEl.value) return;
+    cardEl.value.scrollTo({
+      left: contentEl.value.offsetLeft,
+      behavior: "smooth",
+    });
+  }
 </script>
 
 <template>
   <article
-    class="champion-card grid-2 gap-md color-white items-stretch"
+    ref="cardEl"
+    class="champion-card span-2 lg:span-1 grid-2 gap-md color-white items-stretch"
     :class="item.bg ? `bg-${item.bg}` : ''"
   >
     <div
@@ -55,15 +67,39 @@
           </span>
         </figcaption>
       </figure>
+
+      <div
+        class="champion-card__swipe-cta-container flex md:none row items-center justify-space-between mt"
+        @click="swipeToLearnMore"
+      >
+        <div
+          class="champion-card__swipe-cta text text-body text-black text-white"
+        >
+          Swipe to learn more
+        </div>
+        <div>
+          <svg
+            width="46"
+            height="46"
+            viewBox="0 0 46 46"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <circle cx="23" cy="23" r="22" stroke="white" stroke-width="2" />
+            <path
+              d="M33.7071 23.7071C34.0976 23.3166 34.0976 22.6834 33.7071 22.2929L27.3431 15.9289C26.9526 15.5384 26.3195 15.5384 25.9289 15.9289C25.5384 16.3195 25.5384 16.9526 25.9289 17.3431L31.5858 23L25.9289 28.6569C25.5384 29.0474 25.5384 29.6805 25.9289 30.0711C26.3195 30.4616 26.9526 30.4616 27.3431 30.0711L33.7071 23.7071ZM12 23V24L33 24V23V22L12 22V23Z"
+              fill="white"
+            />
+          </svg>
+        </div>
+      </div>
     </div>
 
     <div
-      class="champion-card__content flex column justify-space-between gap-md span-2 lg:span-1"
+      ref="contentEl"
+      class="champion-card__content flex column justify-space-between gap-md span-2 lg:span-1 pl-md md:pl-none"
     >
-      <!-- <p v-if="item.focusLabel" class="text text-caption text-bold color-blue">
-        {{ item.focusLabel }}
-      </p> -->
-      <div class="flex column gap-md">
+      <div class="flex column gap-md pl-md">
         <h3 class="text text-heading-sm text-display">
           {{ item.name }}
         </h3>
@@ -82,7 +118,7 @@
       </div>
 
       <a
-        class="text text-body-md text-bold text-underline"
+        class="text text-body text-bold text-underline pl-md md:pl-none"
         :href="item.ctaLink"
         target="_blank"
         rel="noopener noreferrer"
@@ -94,8 +130,28 @@
 </template>
 
 <style scoped lang="scss">
+  @use "@/assets/scss/base/_mediaQueries" as *;
+
   .champion-card {
     border-radius: 5px;
+
+    // Mobile-only: swipe left to reveal content
+    @include md-down {
+      display: flex;
+      flex-wrap: nowrap;
+      width: 100%;
+      overflow-x: auto;
+      overflow-y: hidden;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      overscroll-behavior-x: contain;
+
+      // Hide scrollbar (still swipeable)
+      scrollbar-width: none; // Firefox
+      &::-webkit-scrollbar {
+        display: none; // WebKit
+      }
+    }
 
     &__media {
       width: 100%;
@@ -107,6 +163,12 @@
       background-size: cover;
       background-position: center;
       border-radius: 5px;
+
+      @include md-down {
+        flex: 0 0 100%;
+        scroll-snap-align: start;
+        scroll-snap-stop: always;
+      }
 
       figure {
         height: auto;
@@ -131,6 +193,19 @@
 
     &__content {
       padding: 20px 25px 20px 0px;
+
+      @include md-down {
+        flex: 0 0 100%;
+        scroll-snap-align: start;
+        scroll-snap-stop: always;
+        padding: 20px 25px;
+
+        // Remove utility paddings used for desktop grid spacing
+        > div,
+        > a {
+          padding-left: 0;
+        }
+      }
     }
   }
 </style>

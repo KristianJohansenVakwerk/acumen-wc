@@ -45,7 +45,7 @@
       },
       {
         threshold: [0],
-      },
+      }
     );
 
     observer.observe(sectionEl.value);
@@ -64,11 +64,11 @@
 
   <div
     ref="sectionEl"
-    class="section section-donation flex column gap-giga px-giga relative z-10"
+    class="section section-donation flex column gap-md md:gap-giga px-md md:px-giga lg:px-giga relative z-10"
   >
-    <div class="container-md flex column gap-lg">
+    <div class="container-md flex column gap-md md:gap-lg">
       <h2
-        class="text text-display-lg text-display color-blue container-md text-align-center"
+        class="text text-display-lg text-display color-blue container-md md:text-align-center"
       >
         {{ section.props.title }}
       </h2>
@@ -76,11 +76,13 @@
       <RichText :richtext="section.props.richtext" />
     </div>
 
-    <div class="section-donation__illustration grid-6 gap-giga container">
-      <div class="span-6 lg:span-4">
+    <div
+      class="section-donation__illustration grid-6 gap-md md:gap-giga container"
+    >
+      <div class="span-6 lg:span-4 order-2 md:order-1">
         <DonationIllustration @click="onIllustrationClick" />
       </div>
-      <div class="span-6 lg:span-2">
+      <div class="span-6 lg:span-2 order-1 md:order-2">
         <Accordion
           v-model:open-id="openId"
           :items="section.props.tiers as AccordionEntry[]"

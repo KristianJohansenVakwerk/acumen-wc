@@ -48,7 +48,7 @@ $base-line-height-lg: 22px;
 $base-bg-color: $color-light-grey;
 
 // Text size tokens
-$text-size-caption: 12px;
+$text-size-caption: 11px;
 $text-size-label: 14px;
 $text-size-body-sm: 16px;
 $text-size-body: 20px;
@@ -56,7 +56,8 @@ $text-size-subheading: 24px;
 $text-size-heading-sm: 32px;
 $text-size-heading-md: 40px;
 $text-size-heading-xl: 64px;
-$text-size-display-lg: 72px;
+$text-size-display-lg: 40px;
+$text-size-display-lg-desktop: 72px;
 
 // Line-height tokens
 $text-lh-caption: 13px;
@@ -68,7 +69,8 @@ $text-lh-heading-sm-tight: 35px;
 $text-lh-heading-sm: 36px;
 $text-lh-heading-md: 45px;
 $text-lh-heading-xl: 71px;
-$text-lh-display-lg: 86px;
+$text-lh-display-lg: 48px;
+$text-lh-display-lg-desktop: 86px;
 
 // Breakpoints
 $breakpoint-sm: 450px;

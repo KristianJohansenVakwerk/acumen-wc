@@ -234,52 +234,50 @@
       /> -->
     </svg>
 
-    <div
-      class="iconLabel iconLabel__left text text-body color-white text-black"
-    >
+    <div class="iconLabel iconLabel__left text text-map color-white text-black">
       Zone 1
     </div>
 
     <div
-      class="iconLabel iconLabel__top__left text text-body color-white text-black"
+      class="iconLabel iconLabel__top__left text text-map color-white text-black"
     >
       The Backline
     </div>
     <div
-      class="iconLabel iconLabel__top__right text text-body color-white text-black"
+      class="iconLabel iconLabel__top__right text text-map color-white text-black"
     >
       The Backline
     </div>
 
     <div
-      class="iconLabel iconLabel__top__center text text-body text-center color-white text-black"
+      class="iconLabel iconLabel__top__center text text-map text-center color-white text-black"
     >
       Match <br />
       MVP
     </div>
 
     <div
-      class="iconLabel iconLabel__right text text-body color-black text-black"
+      class="iconLabel iconLabel__right text text-map color-black text-black"
     >
       The 12th player
     </div>
 
     <div
-      class="iconLabel iconLabel__bottom__left text text-body color-white text-black"
+      class="iconLabel iconLabel__bottom__left text text-map color-white text-black"
     >
-      Midfield Engine
+      Midfield <span class="midfield-engine-break">Engine</span>
     </div>
 
     <div
-      class="iconLabel iconLabel__bottom__center text text-body text-center color-white text-black"
+      class="iconLabel iconLabel__bottom__center text text-map text-center color-white text-black"
     >
       Match <br />
       MVP
     </div>
     <div
-      class="iconLabel iconLabel__bottom__right text text-body color-white text-bold"
+      class="iconLabel iconLabel__bottom__right text text-map color-white text-bold"
     >
-      Midfield Engine
+      Midfield <span class="midfield-engine-break">Engine</span>
     </div>
   </div>
 </template>
@@ -337,7 +335,7 @@
     &__top {
       &__left {
         left: 25.02%;
-        top: 11.65%;
+        top: 12.17%;
         transform: translate(-50%, -50%);
       }
       &__center {
@@ -346,26 +344,61 @@
         transform: translate(-50%, -50%);
       }
       &__right {
-        left: 73.77%;
+        left: 76%;
         top: 12.17%;
         transform: translate(-50%, -50%);
+
+        @include md-up {
+          left: 76%;
+
+          transform: translate(-50%, -50%);
+        }
       }
     }
 
     &__bottom {
       top: 88.5%; /* tune */
       &__left {
-        left: 65.4%;
+        right: 67%;
         top: 88.5%;
+
+        @include md-down {
+          text-align: center;
+          .midfield-engine-break {
+            display: block;
+          }
+        }
+
+        @include md-up {
+          right: 65.4%;
+          top: 88.5%;
+        }
       }
       &__center {
         left: 50.27%;
-        top: 88.5%;
+        top: 90%;
         transform: translate(-50%, -50%);
+
+        @include md-up {
+          left: 50.27%;
+          top: 88.5%;
+        }
       }
       &__right {
-        right: 65.4%;
+        left: 70%;
         top: 88.5%;
+
+        @include md-down {
+          text-align: center;
+          .midfield-engine-break {
+            display: block;
+          }
+        }
+
+        @include md-up {
+          left: 65.4%;
+          top: 88.5%;
+        }
       }
     }
   }

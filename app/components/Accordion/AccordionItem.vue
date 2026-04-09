@@ -90,13 +90,13 @@
           width="16"
           height="16"
         />
-        <span class="accordion-item__title text text-body-md text-bold">{{
+        <span class="accordion-item__title text text-body text-bold">{{
           title
         }}</span>
       </span>
       <span
         v-if="amount !== null"
-        class="accordion-item__amount text text-body-md text-bold"
+        class="accordion-item__amount text text-body text-bold"
         >${{ amount }} USD</span
       >
       <div v-else class="accordion-item__amount-empty" aria-hidden="true" />

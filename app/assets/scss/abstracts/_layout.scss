@@ -132,6 +132,13 @@ $layout_settings_array: (
     "none": 0,
     "20": $base-border-radius,
   ),
+  "order": (
+    "1": 1,
+    "2": 2,
+  ),
+  "order-reverse": (
+    "reverse": reverse,
+  ),
 );
 
 @mixin generate-layout-utilities() {
@@ -285,6 +292,28 @@ $layout_settings_array: (
         "opacity-#{$name}",
         (
           opacity: $value,
+        )
+      );
+    }
+  }
+  @each $breakpoint in $breakpoints {
+    @each $name, $value in map.get($layout_settings_array, "order") {
+      @include add-utility(
+        $breakpoint,
+        "order-#{$name}",
+        (
+          order: $value,
+        )
+      );
+    }
+  }
+  @each $breakpoint in $breakpoints {
+    @each $name, $value in map.get($layout_settings_array, "order-reverse") {
+      @include add-utility(
+        $breakpoint,
+        "order-reverse-#{$name}",
+        (
+          order: $value,
         )
       );
     }

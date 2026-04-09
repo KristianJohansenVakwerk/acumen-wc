@@ -110,6 +110,15 @@ $text-settings-array: (
     "font-size-lg": px-to-rem($text-size-label),
     "line-height-lg": line-height($text-lh-label, $text-size-label),
   ),
+  "map": (
+    "font-name": "gellix",
+    "font-size": px-to-rem($text-size-caption),
+    "line-height": line-height($text-lh-caption, $text-size-caption),
+    "font-size-md": px-to-rem($text-size-body),
+    "line-height-md": line-height($text-lh-body, $text-size-body),
+    "font-size-lg": px-to-rem($text-size-body),
+    "line-height-lg": line-height($text-lh-body, $text-size-body),
+  ),
   "body-sm": (
     "font-name": "gellix",
     "font-size": px-to-rem($text-size-body-sm),
@@ -121,8 +130,8 @@ $text-settings-array: (
   ),
   "body": (
     "font-name": "gellix",
-    "font-size": px-to-rem($text-size-body),
-    "line-height": line-height($text-lh-body, $text-size-body),
+    "font-size": px-to-rem($text-size-body-sm),
+    "line-height": line-height($text-lh-body-sm, $text-size-body-sm),
     "font-size-md": px-to-rem($text-size-body),
     "line-height-md": line-height($text-lh-body, $text-size-body),
     "font-size-lg": px-to-rem($text-size-body),
@@ -154,8 +163,8 @@ $text-settings-array: (
   ),
   "heading-sm": (
     "font-name": "gellix",
-    "font-size": px-to-rem($text-size-heading-sm),
-    "line-height": line-height($text-lh-heading-sm, $text-size-heading-sm),
+    "font-size": px-to-rem($text-size-body-sm),
+    "line-height": line-height($text-lh-body-sm, $text-size-body-sm),
     "font-size-md": px-to-rem($text-size-heading-sm),
     "line-height-md": line-height($text-lh-heading-sm, $text-size-heading-sm),
     "font-size-lg": px-to-rem($text-size-heading-sm),
@@ -185,8 +194,11 @@ $text-settings-array: (
     "line-height": line-height($text-lh-display-lg, $text-size-display-lg),
     "font-size-md": px-to-rem($text-size-display-lg),
     "line-height-md": line-height($text-lh-display-lg, $text-size-display-lg),
-    "font-size-lg": px-to-rem($text-size-display-lg),
-    "line-height-lg": line-height($text-lh-display-lg, $text-size-display-lg),
+    "font-size-lg": px-to-rem($text-size-display-lg-desktop),
+    "line-height-lg": line-height(
+        $text-lh-display-lg-desktop,
+        $text-size-display-lg-desktop
+      ),
   ),
 );
 

@@ -4,6 +4,7 @@
 
   defineProps<{
     videoSrc: string;
+    videoPoster?: string;
     /** Hero image alt / accessibility (section title). */
     title?: string;
     /** Main hero headline next to the icon. */
@@ -94,6 +95,7 @@
         <VideoLoop
           v-if="videoSrc"
           :src="videoSrc"
+          :poster="videoPoster"
           video-class="cover absolute top-0 left-0 w-full h-full section-hero-video__video section-hero-video__video__1 z-1"
         />
 
@@ -115,6 +117,7 @@
         <VideoLoop
           v-if="videoSrc"
           :src="videoSrc"
+          :poster="videoPoster"
           video-class="cover absolute top-0 left-0 w-full h-full section-hero-video__video section-hero-video__video__2"
         />
 

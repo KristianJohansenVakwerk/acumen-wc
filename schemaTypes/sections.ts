@@ -37,6 +37,7 @@ export const sectionPropsSchema = z
     subhead: z.string().optional(),
     richtext: richTextBlocksSchema.optional(),
     videoSrc: z.string().optional(),
+    videoPoster: z.string().optional(),
 
     // Donation
     tiersIntro: z.string().optional(),

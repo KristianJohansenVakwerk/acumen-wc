@@ -2,6 +2,7 @@
   defineProps<{
     src: string;
     videoClass?: string;
+    poster?: string;
   }>();
 </script>
 
@@ -10,6 +11,7 @@
     class="video"
     :class="videoClass"
     :src="src"
+    :poster="poster"
     playsinline
     loop
     muted

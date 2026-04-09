@@ -21,6 +21,7 @@
       <div class="section-hero relative">
         <SectionHeroVideo
           :video-src="section.props.videoSrc ?? ''"
+          :video-poster="section.props.videoPoster"
           :title="section.props.title"
           :subhead="section.props.subhead"
           @header-logo-visible="onHeaderLogoVisible"

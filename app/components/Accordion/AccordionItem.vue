@@ -27,6 +27,7 @@
   const isOpen = computed(() => props.openId === props.id);
   const bodyContentRef = ref<HTMLElement | null>(null);
   const bodyMaxHeight = ref("0px");
+  const rafId = ref<number | null>(null);
 
   const bodyStyles = computed(() => ({
     maxHeight: bodyMaxHeight.value,
@@ -34,9 +35,27 @@
 
   const bgClass = computed(() => `bg-${props.tierBg}`);
 
+  const cancelRaf = () => {
+    if (rafId.value !== null) {
+      cancelAnimationFrame(rafId.value);
+      rafId.value = null;
+    }
+  };
+
+  const getContentHeightPx = () => {
+    const el = bodyContentRef.value;
+    if (!el) return "0px";
+    return `${el.scrollHeight}px`;
+  };
+
   const updateBodyHeight = () => {
-    const contentHeight = bodyContentRef.value?.scrollHeight ?? 0;
-    bodyMaxHeight.value = isOpen.value ? `${contentHeight}px` : "0px";
+    // iOS Safari can miss the transition if max-height changes too quickly.
+    // Scheduling the write ensures the "from" style is committed first.
+    cancelRaf();
+    rafId.value = requestAnimationFrame(() => {
+      bodyMaxHeight.value = isOpen.value ? getContentHeightPx() : "0px";
+      rafId.value = null;
+    });
   };
 
   const toggleOpen = async () => {
@@ -60,6 +79,7 @@
   });
 
   onBeforeUnmount(() => {
+    cancelRaf();
     resizeObserver?.disconnect();
   });
 
@@ -70,6 +90,13 @@
       updateBodyHeight();
     }
   );
+
+  const onBodyMediaLoad = async () => {
+    // NuxtImg/image load can change scrollHeight after initial measurement,
+    // and ResizeObserver isn't always reliable across Safari versions.
+    await nextTick();
+    updateBodyHeight();
+  };
 </script>
 
 <template>
@@ -114,6 +141,7 @@
           alt=""
           width="90"
           height="90"
+          @load="onBodyMediaLoad"
         />
         <p class="accordion-item__copy text text-body text-bold">
           {{ copy }}
@@ -172,6 +200,7 @@
       max-height: 0;
       overflow: hidden;
       transition: max-height 220ms ease;
+      will-change: max-height;
       border-radius: 15px;
     }
 

@@ -226,11 +226,8 @@
     }
   }
 
-  /* Respect reduced motion */
-  @media (prefers-reduced-motion: reduce) {
-    .marquee__inner {
-      animation: none;
-      transform: translateX(0);
-    }
+  .marquee__inner {
+    animation: none;
+    transform: translateX(0);
   }
 </style>

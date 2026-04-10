@@ -24,7 +24,7 @@
 
 <template>
   <div>
-    <main class="page-home min-h-screen pt-lg pb-giga">
+    <main class="page-home min-h-screen md:pt-lg pb-lg md:pb-giga">
       <Sections :sections="sections" />
     </main>
   </div>

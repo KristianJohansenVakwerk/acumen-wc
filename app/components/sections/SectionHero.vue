@@ -1,6 +1,7 @@
 <script setup lang="ts">
   import type { SectionItem } from "../../../schemaTypes/sections";
   import SectionHeroVideo from "@/components/SectionHeroVideo/SectionHeroVideo.vue";
+  import SectionHeroVideoTouch from "@/components/SectionHeroVideo/SectionHeroVideoTouch.vue";
   import { ref } from "vue";
   defineProps<{
     section: SectionItem;
@@ -8,7 +9,7 @@
 
   const headerLogoVisible = ref(false);
   const sectionHeroVideoRef = ref<HTMLElement | null>(null);
-
+  const headerLogoRef = ref<HTMLElement | null>(null);
   function onHeaderLogoVisible(visible: boolean) {
     headerLogoVisible.value = visible;
   }
@@ -20,13 +21,26 @@
       class="section section-hero flex column gap-giga fixed top-0 left-0 w-full h-auto z-99"
     >
       <div ref="sectionHeroVideoRef" class="section-hero__videos relative z-20">
-        <SectionHeroVideo
-          :video-src="section.props.videoSrc ?? ''"
-          :video-poster="section.props.videoPoster as string"
-          :title="section.props.title"
-          :subhead="section.props.subhead"
-          @header-logo-visible="onHeaderLogoVisible"
-        />
+        <div class="block sm:none relative z-20 px-md pt-md">
+          <SectionHeroVideoTouch
+            :video-src="section.props.videoSrc ?? ''"
+            :video-poster="section.props.videoPoster as string"
+            :title="section.props.title"
+            :subhead="section.props.subhead"
+            :scroll-end-el="headerLogoRef"
+            @header-logo-visible="onHeaderLogoVisible"
+          />
+        </div>
+        <div class="none sm:block relative z-20">
+          <SectionHeroVideo
+            :video-src="section.props.videoSrc ?? ''"
+            :video-poster="section.props.videoPoster as string"
+            :title="section.props.title"
+            :subhead="section.props.subhead"
+            :scroll-end-el="headerLogoRef"
+            @header-logo-visible="onHeaderLogoVisible"
+          />
+        </div>
       </div>
     </div>
 
@@ -55,12 +69,20 @@
 
 <style scoped lang="scss">
   .section-hero {
-    padding-top: 50px;
+    padding-top: 0px;
     pointer-events: none;
+
+    @include md-up {
+      padding-top: 50px;
+    }
 
     &__logo,
     &__richtext {
-      margin-top: 50vw;
+      margin-top: calc(60svh);
+
+      @include sm-up {
+        margin-top: 50vw;
+      }
     }
 
     &__richtext {
@@ -68,10 +90,17 @@
     }
 
     &__logo {
-      left: 64px;
-      top: 50px;
-      width: min(calc(183 / 1440 * 100%), 200px);
+      left: 25px;
+      top: 25px;
+      width: 150px;
       height: auto;
+
+      @include md-up {
+        left: 64px;
+        top: 50px;
+        width: min(calc(183 / 1440 * 100%), 200px);
+        height: auto;
+      }
     }
   }
 </style>

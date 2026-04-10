@@ -29,8 +29,8 @@
   const headerLogoClosedProgress = 0.97;
 
   const rootRef = ref<HTMLElement | null>(null);
-  const layerLeftRef = ref<HTMLElement | null>(null);
-  const layerRightRef = ref<HTMLElement | null>(null);
+  const layerTopRef = ref<HTMLElement | null>(null);
+  const layerBottomRef = ref<HTMLElement | null>(null);
 
   let ctx: { revert: () => void } | null = null;
   /** Set when the hero ScrollTrigger is created; used to scroll to the same “open” position as the scrub range end. */
@@ -59,10 +59,10 @@
   onMounted(() => {
     const { gsap } = useGSAP();
     const root = rootRef.value;
-    const left = layerLeftRef.value;
-    const right = layerRightRef.value;
+    const top = layerTopRef.value;
+    const bottom = layerBottomRef.value;
     const videoHeight = rootRef.value?.clientHeight ?? 0;
-    if (!gsap || !root || !left || !right || !videoHeight) return;
+    if (!gsap || !root || !top || !bottom || !videoHeight) return;
 
     ctx = gsap.context(() => {
       let lastHeaderLogoVisible: boolean | null = null;
@@ -74,10 +74,10 @@
           end: () => {
             const el = props.scrollEndEl;
             if (el) {
-              // Desktop: keep 50px breathing room from the viewport top.
-              return clampNonNegative(getDocumentOffsetTop(el) - 50);
+              // Mobile: keep 25px breathing room from the viewport top.
+              return clampNonNegative(getDocumentOffsetTop(el) - 25);
             }
-            return `+=${Math.round(videoHeight + 100)}`;
+            return `+=411px`;
           },
           scrub: 0.45,
           invalidateOnRefresh: true,
@@ -100,8 +100,8 @@
         },
       });
 
-      tl.to(left, { x: "-110vw", ease: "none" }, 0);
-      tl.to(right, { x: "110vw", ease: "none" }, 0);
+      tl.to(top, { y: "-110vw", ease: "none" }, 0);
+      tl.to(bottom, { y: "110vw", ease: "none" }, 0);
 
       heroScrollTrigger = tl.scrollTrigger ?? null;
     }, root);
@@ -119,8 +119,8 @@
   <div>
     <div ref="rootRef" class="section-hero-video relative">
       <div
-        ref="layerLeftRef"
-        class="section-hero-video__layer section-hero-video__layer__left"
+        ref="layerTopRef"
+        class="section-hero-video__layer section-hero-video__layer__top"
       >
         <VideoLoop
           v-if="videoSrc"
@@ -144,8 +144,8 @@
       </div>
 
       <div
-        ref="layerRightRef"
-        class="section-hero-video__layer section-hero-video__layer__right"
+        ref="layerBottomRef"
+        class="section-hero-video__layer section-hero-video__layer__bottom"
       >
         <VideoLoop
           v-if="videoSrc"
@@ -187,37 +187,39 @@
 
 <style scoped lang="scss">
   .section-hero-video {
-    aspect-ratio: 1307/600;
-    overflow: hidden;
-    pointer-events: none;
+    aspect-ratio: 313/454;
+    // overflow: hidden;
+    // pointer-events: none;
 
     &__layer {
       position: absolute;
       inset: 0;
       will-change: transform;
-      width: calc(100% - 128px);
+      width: calc(100%);
       margin: 0 auto;
     }
 
     &__overlay {
       position: absolute;
-      width: 81.1%;
-      height: calc(100% - 64px);
+      width: 100%;
+      height: calc(76.55%);
       left: 0;
       top: 50%;
       transform: translateY(-50%);
       padding: 0 0 40px 30px;
       z-index: 1;
+      display: none;
     }
 
     &__overlay-right {
+      display: none;
       position: absolute;
       top: 0;
       right: 0;
       top: 50%;
       transform: translateY(-50%);
-      height: calc(100% - 64px);
-      width: 19.1%;
+      height: calc(24.44%);
+      width: 100%;
       padding-bottom: 40px;
       z-index: 1;
     }
@@ -246,20 +248,20 @@
 
     &__video {
       &__1 {
-        -webkit-mask-image: url("/_include/ui/video-mask-left.svg");
-        mask-image: url("/_include/ui/video-mask-left.svg");
+        -webkit-mask-image: url("/_include/ui/video-mask-top-mobile.svg");
+        mask-image: url("/_include/ui/video-mask-top-mobile.svg");
         mask-repeat: no-repeat;
-        -webkit-mask-size: 81.1% 100%;
-        mask-size: 81.1% 100%;
-        mask-position: left center;
+        -webkit-mask-size: 100% 76.55%;
+        mask-size: 100% 76.55%;
+        mask-position: left top;
       }
       &__2 {
-        -webkit-mask-image: url("/_include/ui/video-mask-right.svg");
-        mask-image: url("/_include/ui/video-mask-right.svg");
+        -webkit-mask-image: url("/_include/ui/video-mask-bottom-mobile.svg");
+        mask-image: url("/_include/ui/video-mask-bottom-mobile.svg");
         mask-repeat: no-repeat;
-        -webkit-mask-size: 19.1% 100%;
-        mask-size: 19.1% 100%;
-        mask-position: right center;
+        -webkit-mask-size: 100% 24.44%;
+        mask-size: 100% 24.44%;
+        mask-position: left bottom;
       }
     }
   }

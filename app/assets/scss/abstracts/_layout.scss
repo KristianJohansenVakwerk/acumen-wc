@@ -7,6 +7,14 @@
 // container
 %u-max-width-md {
   max-width: 720px;
+
+  @include md-up {
+    max-width: none;
+  }
+
+  @include lg-up {
+    max-width: 720px;
+  }
 }
 %u-container {
   max-width: $container-max-width;

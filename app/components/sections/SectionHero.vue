@@ -60,7 +60,7 @@
     </div>
 
     <div
-      class="flex column px-md md:px-none gap-lg container-md relative z-0 section-hero__richtext"
+      class="flex column px-md md:px-giga lg:px-md md:px-none gap-lg container-md relative z-0 section-hero__richtext"
     >
       <RichText :richtext="section.props.richtext" />
     </div>
@@ -73,6 +73,9 @@
     pointer-events: none;
 
     @include md-up {
+      padding-top: 25px;
+    }
+    @include lg-up {
       padding-top: 50px;
     }
 
@@ -86,16 +89,24 @@
     }
 
     &__richtext {
-      padding-top: 100px;
+      padding-top: 0px;
+
+      @include md-up {
+        padding-top: 100px;
+      }
+
+      @include lg-up {
+        padding-top: 100px;
+      }
     }
 
     &__logo {
-      left: 25px;
+      left: 100px;
       top: 25px;
-      width: 150px;
+      width: 200px;
       height: auto;
 
-      @include md-up {
+      @include lg-up {
         left: 64px;
         top: 50px;
         width: min(calc(183 / 1440 * 100%), 200px);

@@ -92,5 +92,12 @@
   .accordion {
     gap: 0;
     width: 100%;
+    @include md-up {
+      max-width: 400px;
+      margin: 0 auto;
+    }
+    @include lg-up {
+      max-width: none;
+    }
   }
 </style>

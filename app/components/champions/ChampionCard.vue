@@ -31,7 +31,7 @@
 <template>
   <article
     ref="cardEl"
-    class="champion-card span-2 lg:span-1 grid-2 gap-md color-white items-stretch"
+    class="champion-card span-2 md:span-1 lg:span-1 grid-2 gap-md color-white items-stretch"
     :class="item.bg ? `bg-${item.bg}` : ''"
   >
     <div
@@ -69,7 +69,7 @@
       </figure>
 
       <div
-        class="champion-card__swipe-cta-container flex md:none row items-center justify-space-between mt"
+        class="champion-card__swipe-cta-container flex lg:none row items-center justify-space-between mt"
         @click="swipeToLearnMore"
       >
         <div
@@ -136,7 +136,7 @@
     border-radius: 5px;
 
     // Mobile-only: swipe left to reveal content
-    @include md-down {
+    @include lg-down {
       display: flex;
       flex-wrap: nowrap;
       width: 100%;
@@ -164,7 +164,7 @@
       background-position: center;
       border-radius: 5px;
 
-      @include md-down {
+      @include lg-down {
         flex: 0 0 100%;
         scroll-snap-align: start;
         scroll-snap-stop: always;
@@ -194,7 +194,7 @@
     &__content {
       padding: 20px 25px 20px 0px;
 
-      @include md-down {
+      @include lg-down {
         flex: 0 0 100%;
         scroll-snap-align: start;
         scroll-snap-stop: always;

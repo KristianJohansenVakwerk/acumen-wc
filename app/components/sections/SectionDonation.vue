@@ -79,10 +79,10 @@
     <div
       class="section-donation__illustration grid-6 gap-md md:gap-giga container"
     >
-      <div class="span-6 lg:span-4 order-2 md:order-1">
+      <div class="span-6 lg:span-4 order-2 lg:order-1">
         <DonationIllustration @click="onIllustrationClick" />
       </div>
-      <div class="span-6 lg:span-2 order-1 md:order-2">
+      <div class="span-6 lg:span-2 order-1 lg:order-2">
         <Accordion
           v-model:open-id="openId"
           :items="section.props.tiers as AccordionEntry[]"

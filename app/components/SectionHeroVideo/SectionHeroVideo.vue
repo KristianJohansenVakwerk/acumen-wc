@@ -195,8 +195,12 @@
       position: absolute;
       inset: 0;
       will-change: transform;
-      width: calc(100% - 128px);
+      width: calc(100% - 64px);
       margin: 0 auto;
+
+      @include lg-up {
+        width: calc(100% - 128px);
+      }
     }
 
     &__overlay {
@@ -234,14 +238,22 @@
     }
 
     &__logo {
-      width: 100px;
+      width: 50px;
       height: auto;
+
+      @include lg-up {
+        width: 100px;
+      }
     }
 
     &__icon {
       display: block;
-      width: 245px;
+      width: 112px;
       height: auto;
+
+      @include lg-up {
+        width: 245px;
+      }
     }
 
     &__video {

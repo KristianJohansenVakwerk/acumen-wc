@@ -43,7 +43,7 @@
             "ctaText": "Donate"
           },
           {
-            "amount": 1000,
+            "amount": 500,
             "title": "The Backline",
             "icon": "/_include/icons/backline.svg",
             "tierBg": "indigo",
@@ -52,7 +52,7 @@
             "ctaText": "Donate"
           },
           {
-            "amount": 500,
+            "amount": 100,
             "title": "The Midfield Engine",
             "icon": "/_include/icons/midfield-engine.svg",
             "tierBg": "blue-accent",
@@ -61,7 +61,7 @@
             "ctaText": "Donate"
           },
           {
-            "amount": 100,
+            "amount": 25,
             "title": "The Super Sub",
             "icon": "/_include/icons/super-sub.svg",
             "tierBg": "cyan",

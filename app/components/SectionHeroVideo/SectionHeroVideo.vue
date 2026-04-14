@@ -21,9 +21,6 @@
     "header-logo-visible": [visible: boolean];
   }>();
 
-  /** Past this scroll progress (0–1) along the hero range, release “commits” open; below snaps back closed. */
-  const scrollCommitThreshold = 0.1;
-
   /** Hysteresis for header logo: avoid flicker while scrub hovers near the middle. */
   const headerLogoOpenProgress = 0.97;
   const headerLogoClosedProgress = 0.97;
@@ -35,6 +32,11 @@
   let ctx: { revert: () => void } | null = null;
   /** Set when the hero ScrollTrigger is created; used to scroll to the same “open” position as the scrub range end. */
   let heroScrollTrigger: { end: number } | null = null;
+  let removeMagnetScrollListeners: (() => void) | null = null;
+  let isAutoScrolling = false;
+  let lastTouchY: number | null = null;
+  const TOP_TRIGGER_PX = 48;
+  const END_DEADZONE_PX = 8;
 
   function getDocumentOffsetTop(el: HTMLElement): number {
     let top = 0;
@@ -53,7 +55,19 @@
   function scrollHeroOpen() {
     const st = heroScrollTrigger;
     if (!st) return;
+    isAutoScrolling = true;
     window.scrollTo({ top: st.end, behavior: "smooth" });
+    window.setTimeout(() => {
+      isAutoScrolling = false;
+    }, 650);
+  }
+
+  function scrollHeroClosed() {
+    isAutoScrolling = true;
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    window.setTimeout(() => {
+      isAutoScrolling = false;
+    }, 650);
   }
 
   onMounted(() => {
@@ -81,13 +95,6 @@
           },
           scrub: 0.45,
           invalidateOnRefresh: true,
-          snap: {
-            snapTo: (value: number) => (value < scrollCommitThreshold ? 0 : 1),
-            duration: { min: 0.28, max: 0.5 },
-            delay: 0.1,
-            ease: "power2.inOut",
-            inertia: false,
-          },
           onUpdate(self) {
             const p = self.progress;
             let next: boolean | null = null;
@@ -104,12 +111,73 @@
       tl.to(right, { x: "110vw", ease: "none" }, 0);
 
       heroScrollTrigger = tl.scrollTrigger ?? null;
+
+      const getHeroEnd = () => heroScrollTrigger?.end ?? 0;
+      const atTop = () => window.scrollY <= TOP_TRIGGER_PX;
+      const withinHeroRange = () =>
+        window.scrollY > TOP_TRIGGER_PX &&
+        window.scrollY < getHeroEnd() - END_DEADZONE_PX;
+
+      const onWheel = (e: WheelEvent) => {
+        if (isAutoScrolling) return;
+        if (e.deltaY > 0 && atTop()) {
+          // Ensure we always "magnet open" instead of letting the browser advance a few px first.
+          e.preventDefault();
+          scrollHeroOpen();
+        } else if (e.deltaY < 0 && withinHeroRange()) {
+          e.preventDefault();
+          scrollHeroClosed();
+        }
+      };
+
+      const onTouchStart = (e: TouchEvent) => {
+        lastTouchY = e.touches?.[0]?.clientY ?? null;
+      };
+      const onTouchMove = (e: TouchEvent) => {
+        if (isAutoScrolling) return;
+        const y = e.touches?.[0]?.clientY;
+        if (y == null || lastTouchY == null) return;
+        const deltaY = lastTouchY - y; // >0 means user swiped up (scrolling down)
+        lastTouchY = y;
+        if (deltaY > 0 && atTop()) {
+          e.preventDefault();
+          scrollHeroOpen();
+        } else if (deltaY < 0 && withinHeroRange()) {
+          e.preventDefault();
+          scrollHeroClosed();
+        }
+      };
+
+      const onKeyDown = (e: KeyboardEvent) => {
+        if (isAutoScrolling) return;
+        const down =
+          e.key === "ArrowDown" ||
+          e.key === "PageDown" ||
+          e.key === " " ||
+          e.key === "Spacebar";
+        const up = e.key === "ArrowUp" || e.key === "PageUp";
+        if (down && atTop()) scrollHeroOpen();
+        else if (up && withinHeroRange()) scrollHeroClosed();
+      };
+
+      window.addEventListener("wheel", onWheel, { passive: false });
+      window.addEventListener("touchstart", onTouchStart, { passive: true });
+      window.addEventListener("touchmove", onTouchMove, { passive: false });
+      window.addEventListener("keydown", onKeyDown);
+      removeMagnetScrollListeners = () => {
+        window.removeEventListener("wheel", onWheel);
+        window.removeEventListener("touchstart", onTouchStart);
+        window.removeEventListener("touchmove", onTouchMove);
+        window.removeEventListener("keydown", onKeyDown);
+      };
     }, root);
   });
 
   onBeforeUnmount(() => {
     emit("header-logo-visible", false);
     heroScrollTrigger = null;
+    removeMagnetScrollListeners?.();
+    removeMagnetScrollListeners = null;
     ctx?.revert();
     ctx = null;
   });
@@ -173,9 +241,11 @@
             @keydown.space.prevent="scrollHeroOpen"
           >
             <span class="text text-body text-bold color-white">Swipe down</span>
-            <NuxtImg
+            <PulseImage
               src="/_include/icons/fan.svg"
               alt=""
+              :scale="1.3"
+              :speed="0.8"
               style="width: 48px; height: auto"
             />
           </div>

@@ -18,7 +18,7 @@
         <img src="/_include/images/logo-bar.svg" alt="Back to donation" />
       </div>
       <button
-        class="back__button bg-blue color-white text text-heading-sm text-black flex items-center justify-center border-2 border-blue hover:bg-white hover:color-blue transition-all duration-default"
+        class="back__button bg-blue color-white text text-subheading text-black flex items-center justify-center border-2 border-blue hover:bg-white hover:color-blue transition-all duration-default"
         type="button"
         @click="$emit('click')"
       >
@@ -48,7 +48,6 @@
       border-radius: 999px;
       padding: 6px 10px 6px 10px;
       line-height: 1;
-
       min-width: 100px;
 
       @include can-hover {

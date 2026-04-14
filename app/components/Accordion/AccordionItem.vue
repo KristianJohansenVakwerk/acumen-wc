@@ -1,4 +1,5 @@
 <script setup lang="ts">
+  import CtaAction from "../Button/CtaAction.vue";
   import {
     computed,
     nextTick,
@@ -146,13 +147,9 @@
         <p class="accordion-item__copy text text-body text-bold">
           {{ copy }}
         </p>
-        <button
-          class="accordion-item__button bg-white color-black text text-subheading text-black hover:color-white border-1 border-white transition-all duration-default"
-          :class="`hover:bg-${tierBg}`"
-          type="button"
-        >
+        <CtaAction>
           {{ ctaText }}
-        </button>
+        </CtaAction>
       </div>
     </div>
   </div>
@@ -223,16 +220,6 @@
 
     &__copy {
       margin: 0;
-    }
-
-    &__button {
-      justify-self: start;
-      border-radius: 999px;
-      padding: 10px 15px 8px 15px;
-      line-height: 1;
-
-      min-width: 200px;
-      cursor: pointer;
     }
   }
 </style>

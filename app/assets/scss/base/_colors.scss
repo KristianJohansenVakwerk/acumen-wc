@@ -32,6 +32,7 @@ $color-utilities: (
   "yellow": $color-yellow,
   "light-grey": $color-light-grey,
   "magenta": $color-magenta,
+  "transparent": transparent,
 );
 
 @each $name, $value in $color-utilities {

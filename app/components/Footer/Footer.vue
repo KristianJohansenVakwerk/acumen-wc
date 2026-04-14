@@ -63,7 +63,7 @@
         <div
           class="span-9 md:span-4 lg:span-4 flex items-center justify-self-end md:justify-self-start lg:justify-self-center"
         >
-          <SocialLinks :data="footerData.socialLinks" />
+          <SocialLinks :data="footerData.socialLinks ?? []" />
         </div>
         <div
           class="span-12 md:span-5 lg:span-4 justify-self-center lg:justify-self-end"

@@ -1,6 +1,7 @@
 <script setup lang="ts">
   import { computed, ref } from "vue";
   import type { ChampionItem } from "../../../schemaTypes/sections";
+  import CtaAction from "../Button/CtaAction.vue";
 
   const props = defineProps<{
     item: ChampionItem;
@@ -99,7 +100,7 @@
       ref="contentEl"
       class="champion-card__content flex column justify-space-between gap-md span-2 lg:span-1 pl-md md:pl-none"
     >
-      <div class="flex column gap-md pl-md">
+      <div class="flex column gap-md">
         <h3 class="text text-heading-sm text-display">
           {{ item.name }}
         </h3>
@@ -117,14 +118,17 @@
         </p>
       </div>
 
-      <a
-        class="text text-body text-bold text-underline pl-md md:pl-none"
+      <CtaAction
+        type="link"
+        class="pl-md md:pl-none"
         :href="item.ctaLink"
         target="_blank"
         rel="noopener noreferrer"
+        base-class="bg-transparent hover:bg-white color-white text text-body  hover:color-black  border-1 border-white transition-all duration-default"
+        modifier="cta-action__champ"
       >
         {{ item.ctaText }}
-      </a>
+      </CtaAction>
     </div>
   </article>
 </template>
@@ -177,7 +181,9 @@
       figcaption {
         img {
           height: 53px;
-          width: auto;
+          width: 53px;
+          aspect-ratio: 1 / 1;
+          object-fit: cover;
         }
       }
 

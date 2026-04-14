@@ -70,7 +70,12 @@
           }}</label>
         </div>
 
-        <button type="submit" class="form__submit">Submit</button>
+        <button
+          type="submit"
+          class="form__submit bg-white hover:bg-yellow transition-all duration-default color-black text text-bold"
+        >
+          Submit
+        </button>
       </div>
     </form>
   </div>
@@ -182,8 +187,6 @@
 
       .form__submit {
         flex: 0 0 auto;
-        background-color: $color-yellow;
-        color: $color-black;
         min-height: 42px;
         padding: 9px 22px 10px;
         border-radius: 50px;

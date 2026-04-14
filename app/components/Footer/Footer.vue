@@ -53,13 +53,13 @@
       <div
         class="container grid-12 gap-none md:gap row-gap-md md:row-gap-none items-center"
       >
-        <div class="span-3 lg:span-4">
+        <a href="https://acumen.org" target="_blank" class="span-3 lg:span-4">
           <NuxtImg
             class="footer__logo"
             src="/_include/ui/Acumen-Logo-Top.svg"
             alt="Acumen"
           />
-        </div>
+        </a>
         <div
           class="span-9 md:span-4 lg:span-4 flex items-center justify-self-end md:justify-self-start lg:justify-self-center"
         >

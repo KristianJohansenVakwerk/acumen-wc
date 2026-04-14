@@ -19,4 +19,23 @@
   </div>
 </template>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+  .nav {
+    &__item {
+      background-image: linear-gradient(90deg, currentColor, currentColor);
+      background-position: bottom;
+      background-repeat: no-repeat;
+      background-size: 0 2px;
+      padding-bottom: 0.25rem;
+      transition-duration: 0.5s;
+      transition-property: all;
+      transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+
+      @include can-hover {
+        &:hover {
+          background-size: 100% 2px;
+        }
+      }
+    }
+  }
+</style>

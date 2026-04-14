@@ -60,7 +60,7 @@
     </div>
 
     <div
-      class="flex column px-md md:px-giga lg:px-md md:px-none gap-lg container-md relative z-0 section-hero__richtext"
+      class="flex column gap-lg container-md relative z-0 section-hero__richtext"
     >
       <RichText :richtext="section.props.richtext" />
     </div>

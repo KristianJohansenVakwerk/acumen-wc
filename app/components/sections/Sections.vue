@@ -5,6 +5,7 @@
 
   import SectionBanner from "./SectionBanner.vue";
   import SectionChampions from "./SectionChampions.vue";
+  import SectionDisclosure from "./SectionDisclosure.vue";
   import SectionDonation from "./SectionDonation.vue";
   import SectionFooter from "./SectionFooter.vue";
   import SectionHero from "./SectionHero.vue";
@@ -25,6 +26,7 @@
     champions: SectionChampions as SectionComponent,
     footer: SectionFooter as SectionComponent,
     banner: SectionBanner as SectionComponent,
+    disclosure: SectionDisclosure as SectionComponent,
   };
 
   // Warn only once per (id,type) pair.

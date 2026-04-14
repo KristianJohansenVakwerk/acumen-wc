@@ -77,7 +77,7 @@
     </div>
 
     <div
-      class="section-donation__illustration grid-6 gap-md md:gap-giga container"
+      class="section-donation__illustration grid-6 gap-md md:gap-giga con tainer"
     >
       <div class="span-6 lg:span-4 order-2 lg:order-1">
         <DonationIllustration @click="onIllustrationClick" />

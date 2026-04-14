@@ -147,7 +147,7 @@
           {{ copy }}
         </p>
         <button
-          class="accordion-item__button bg-white color-black text text-heading-sm text-black hover:color-white border-1 border-white transition-all duration-default"
+          class="accordion-item__button bg-white color-black text text-subheading text-black hover:color-white border-1 border-white transition-all duration-default"
           :class="`hover:bg-${tierBg}`"
           type="button"
         >

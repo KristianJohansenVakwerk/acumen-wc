@@ -5,7 +5,15 @@
     (e: "click", option: IconLabelClickOption): void;
   }>();
 
+  const activeId = ref<string | null>(null);
+  const hoveredId = ref<string | null>(null);
+
+  function setHovered(id: string | null) {
+    hoveredId.value = id;
+  }
+
   function onIconLabelClick(id: string) {
+    activeId.value = id;
     emit("click", { id });
   }
 </script>
@@ -112,6 +120,10 @@
       <!-- Bottom band: sits behind bottom labels (iconLabel__bottom__left / __center / __right) -->
       <path
         class="clickable-path"
+        :class="{
+          'is-active': activeId === 'theMidfieldEngine',
+          'is-hovered': hoveredId === 'theMidfieldEngine',
+        }"
         d="M595.494 457.407H206.507C182.137 457.407 159.687 449.205 141.759 435.421L53.0176 486.656C92.5123 535.359 152.832 566.491 220.421 566.491H581.58C649.168 566.491 709.488 535.359 748.983 486.656L660.242 435.421C642.307 449.205 619.858 457.407 595.494 457.407Z"
         fill="#2A6EEB"
         stroke="white"
@@ -119,11 +131,19 @@
         stroke-miterlimit="10"
         role="button"
         tabindex="0"
+        @mouseenter="setHovered('theMidfieldEngine')"
+        @mouseleave="setHovered(null)"
+        @focusin="setHovered('theMidfieldEngine')"
+        @focusout="setHovered(null)"
         @click="onIconLabelClick('theMidfieldEngine')"
       />
       <!-- Top-right outer band segment (sits behind top labels area, no direct overlay label) -->
       <path
         class="clickable-path"
+        :class="{
+          'is-active': activeId === 'theBackline',
+          'is-hovered': hoveredId === 'theBackline',
+        }"
         d="M595.499 114.078C619.869 114.078 642.312 122.286 660.241 136.071L748.982 84.8355C709.487 36.1326 649.167 5 581.579 5H516.263L467.405 114.078H595.499Z"
         fill="#2C2CB8"
         stroke="white"
@@ -131,11 +151,19 @@
         stroke-miterlimit="10"
         role="button"
         tabindex="0"
+        @mouseenter="setHovered('theBackline')"
+        @mouseleave="setHovered(null)"
+        @focusin="setHovered('theBackline')"
+        @focusout="setHovered(null)"
         @click="onIconLabelClick('theBackline')"
       />
       <!-- Top-center outer band segment (sits behind iconLabel__top__center 'Match MVP') -->
       <path
         class="clickable-path"
+        :class="{
+          'is-active': activeId === 'matchMvp',
+          'is-hovered': hoveredId === 'matchMvp',
+        }"
         d="M467.406 114.084L516.264 5.00586H285.743L334.601 114.084H467.406Z"
         fill="#002F71"
         stroke="white"
@@ -143,21 +171,37 @@
         stroke-miterlimit="10"
         role="button"
         tabindex="0"
+        @mouseenter="setHovered('matchMvp')"
+        @mouseleave="setHovered(null)"
+        @focusin="setHovered('matchMvp')"
+        @focusout="setHovered(null)"
         @click="onIconLabelClick('matchMvp')"
       />
       <!-- Bottom-center outer band segment (sits behind bottom labels area, no direct overlay label) -->
       <path
         class="clickable-path"
+        :class="{
+          'is-active': activeId === 'matchMvp',
+          'is-hovered': hoveredId === 'matchMvp',
+        }"
         d="M334.601 457.407L285.743 566.492H516.264L467.406 457.407H334.601Z"
         fill="#002F71"
         stroke="white"
         stroke-width="10"
         stroke-miterlimit="10"
+        @mouseenter="setHovered('matchMvp')"
+        @mouseleave="setHovered(null)"
+        @focusin="setHovered('matchMvp')"
+        @focusout="setHovered(null)"
         @click="onIconLabelClick('matchMvp')"
       />
       <!-- Top-left outer band segment (sits behind iconLabel__top__left 'The Backline') -->
       <path
         class="clickable-path"
+        :class="{
+          'is-active': activeId === 'theBackline',
+          'is-hovered': hoveredId === 'theBackline',
+        }"
         d="M206.512 114.09L334.6 114.084L285.743 5.00586H220.427C152.838 5.00586 92.5181 36.1384 53.0234 84.8414L141.765 136.076C159.699 122.292 182.149 114.09 206.512 114.09Z"
         fill="#2C2CB8"
         stroke="white"
@@ -165,11 +209,19 @@
         stroke-miterlimit="10"
         role="button"
         tabindex="0"
+        @mouseenter="setHovered('theBackline')"
+        @mouseleave="setHovered(null)"
+        @focusin="setHovered('theBackline')"
+        @focusout="setHovered(null)"
         @click="onIconLabelClick('theBackline')"
       />
       <!-- Left outer band segment (sits behind iconLabel__left 'Zone 1') -->
       <path
         class="clickable-path"
+        :class="{
+          'is-active': activeId === 'becomeAFan',
+          'is-hovered': hoveredId === 'becomeAFan',
+        }"
         d="M100.164 350.96V220.322C100.164 185.959 116.468 155.407 141.759 135.966L53.0174 84.7305C22.9903 121.761 5 168.939 5 220.322V350.96C5 402.343 22.9903 449.527 53.0174 486.551L141.759 435.316C116.468 415.875 100.164 385.323 100.164 350.96Z"
         fill="#CE242B"
         stroke="white"
@@ -177,11 +229,19 @@
         stroke-miterlimit="10"
         role="button"
         tabindex="0"
+        @mouseenter="setHovered('becomeAFan')"
+        @mouseleave="setHovered(null)"
+        @focusin="setHovered('becomeAFan')"
+        @focusout="setHovered(null)"
         @click="onIconLabelClick('becomeAFan')"
       />
       <!-- Right outer band segment (sits behind iconLabel__right 'The 12th player') -->
       <path
         class="clickable-path"
+        :class="{
+          'is-active': activeId === 'theSuperSub',
+          'is-hovered': hoveredId === 'theSuperSub',
+        }"
         d="M748.982 84.7363L660.241 135.971C685.531 155.413 701.836 185.965 701.836 220.328V350.966C701.836 385.328 685.531 415.88 660.241 435.322L748.982 486.557C779.009 449.533 797 402.349 797 350.966V220.328C797 168.944 779.009 121.761 748.982 84.7363Z"
         fill="#00A0CC"
         stroke="white"
@@ -189,6 +249,10 @@
         stroke-miterlimit="10"
         role="button"
         tabindex="0"
+        @mouseenter="setHovered('theSuperSub')"
+        @mouseleave="setHovered(null)"
+        @focusin="setHovered('theSuperSub')"
+        @focusout="setHovered(null)"
         @click="onIconLabelClick('theSuperSub')"
       />
       <!-- <path
@@ -234,23 +298,29 @@
       /> -->
     </svg>
 
-    <div class="iconLabel iconLabel__left text text-map color-white text-black">
-      Zone 1
+    <div
+      class="iconLabel iconLabel__left text text-map color-white text-black"
+      :class="{ 'is-hovered': hoveredId === 'becomeAFan' }"
+    >
+      Become a Fan
     </div>
 
     <div
       class="iconLabel iconLabel__top__left text text-map color-white text-black"
+      :class="{ 'is-hovered': hoveredId === 'theBackline' }"
     >
       The Backline
     </div>
     <div
       class="iconLabel iconLabel__top__right text text-map color-white text-black"
+      :class="{ 'is-hovered': hoveredId === 'theBackline' }"
     >
       The Backline
     </div>
 
     <div
       class="iconLabel iconLabel__top__center text text-map text-center color-white text-black"
+      :class="{ 'is-hovered': hoveredId === 'matchMvp' }"
     >
       Match <br />
       MVP
@@ -258,24 +328,28 @@
 
     <div
       class="iconLabel iconLabel__right text text-map color-black text-black"
+      :class="{ 'is-hovered': hoveredId === 'theSuperSub' }"
     >
-      The 12th player
+      The Super Sub
     </div>
 
     <div
       class="iconLabel iconLabel__bottom__left text text-map color-white text-black"
+      :class="{ 'is-hovered': hoveredId === 'theMidfieldEngine' }"
     >
       Midfield <span class="midfield-engine-break">Engine</span>
     </div>
 
     <div
       class="iconLabel iconLabel__bottom__center text text-map text-center color-white text-black"
+      :class="{ 'is-hovered': hoveredId === 'matchMvp' }"
     >
       Match <br />
       MVP
     </div>
     <div
-      class="iconLabel iconLabel__bottom__right text text-map color-white text-bold"
+      class="iconLabel iconLabel__bottom__right text text-map color-white text-black"
+      :class="{ 'is-hovered': hoveredId === 'theMidfieldEngine' }"
     >
       Midfield <span class="midfield-engine-break">Engine</span>
     </div>
@@ -290,30 +364,48 @@
     display: block;
     width: 100%;
     height: auto;
-
-    // .iconLabel {
-    //   fill: #fff;
-    //   font-size: 20px;
-    //   font-weight: 700;
-    //   font-family: inherit;
-    // }
   }
 
   .clickable-path {
     cursor: pointer;
+    transition:
+      fill 180ms $ease-power2-out,
+      stroke 180ms $ease-power2-out,
+      filter 180ms $ease-power2-out;
 
     &:focus,
     &:focus-visible {
       outline: none;
     }
+
+    &:hover,
+    &:focus-visible {
+      fill: $color-yellow-base !important;
+      stroke: $color-white-base !important;
+      filter: brightness(1.02);
+    }
+
+    &.is-active {
+      fill: $color-yellow-base !important;
+      stroke: $color-white-base !important;
+      filter: brightness(1.02);
+    }
+
+    &.is-hovered {
+      fill: $color-yellow-base !important;
+      stroke: $color-white-base !important;
+      filter: brightness(1.02);
+    }
   }
 
   .iconLabel {
     position: absolute;
-
     transform: translate(-0%, -50%);
-
     pointer-events: none;
+
+    &.is-hovered {
+      color: $color-black-base !important;
+    }
 
     &__left {
       left: 6.36%;
@@ -362,16 +454,24 @@
         right: 67%;
         top: 88.5%;
 
+        display: flex;
+        flex-direction: row;
+        gap: 5px;
+        align-items: center;
+        justify-content: center;
+
         @include md-down {
           text-align: center;
+          flex-direction: column;
+          gap: 0;
           .midfield-engine-break {
             display: block;
           }
         }
 
         @include md-up {
-          right: 65.4%;
-          top: 88.5%;
+          right: 67.7%;
+          top: 88.2%;
         }
       }
       &__center {
@@ -381,23 +481,30 @@
 
         @include md-up {
           left: 50.27%;
-          top: 88.5%;
+          top: 89, 51%;
         }
       }
       &__right {
         left: 70%;
         top: 88.5%;
+        display: flex;
+        flex-direction: row;
+        gap: 5px;
+        align-items: center;
+        justify-content: center;
 
         @include md-down {
           text-align: center;
+          flex-direction: column;
+          gap: 0;
           .midfield-engine-break {
             display: block;
           }
         }
 
         @include md-up {
-          left: 65.4%;
-          top: 88.5%;
+          left: 68.4%;
+          top: 88.2%;
         }
       }
     }

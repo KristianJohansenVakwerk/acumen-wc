@@ -7,7 +7,7 @@
         "title": "Love the World Game. Love the World More.",
         "subhead": "Your support funds the future",
         "videoSrc": "/_include/videos/6508465_Ball_Football_Rain_Village_By_Phong_Croco_Artlist_4K.mp4",
-        "videoPoster": "/_include/videos/6508465_Ball Football Rain Village_By_Phong_Croco_Artlist_HD_web_poster.webp",
+        "videoPoster": "/_include/videos/6508465_Ball Football Rain Village_By_Phong_Croco_Artlist_HD_web.webp",
         "richtext": [
           {
             "tag": "h3",
@@ -34,21 +34,12 @@
         "tiersIntro": "Your contribution supports Acumen's portfolio of work, helping scale solutions where they are needed most.",
         "tiers": [
           {
-            "amount": 1000,
-            "title": "Match MVP",
-            "icon": "/_include/icons/match-mvp.svg",
-            "tierBg": "blue-primary",
+            "amount": 25,
+            "title": "The Super Sub",
+            "icon": "/_include/icons/super-sub.svg",
+            "tierBg": "cyan",
             "tierIcon": "square",
-            "copy": "You raise the level of the game. Your leadership-level support helps accelerate climate resilience across communities and regions.",
-            "ctaText": "Donate"
-          },
-          {
-            "amount": 500,
-            "title": "The Backline",
-            "icon": "/_include/icons/backline.svg",
-            "tierBg": "indigo",
-            "tierIcon": "square",
-            "copy": "Built for endurance. Your support helps expand the long-term work of leaders adapting to a changing climate.",
+            "copy": "Every great team has one. You bring belief, momentum, and early support to the long game of climate resilience.",
             "ctaText": "Donate"
           },
           {
@@ -61,12 +52,21 @@
             "ctaText": "Donate"
           },
           {
-            "amount": 25,
-            "title": "The Super Sub",
-            "icon": "/_include/icons/super-sub.svg",
-            "tierBg": "cyan",
+            "amount": 500,
+            "title": "The Backline",
+            "icon": "/_include/icons/backline.svg",
+            "tierBg": "indigo",
             "tierIcon": "square",
-            "copy": "Every great team has one. You bring belief, momentum, and early support to the long game of climate resilience.",
+            "copy": "Built for endurance. Your support helps expand the long-term work of leaders adapting to a changing climate.",
+            "ctaText": "Donate"
+          },
+          {
+            "amount": 1000,
+            "title": "Match MVP",
+            "icon": "/_include/icons/match-mvp.svg",
+            "tierBg": "blue-primary",
+            "tierIcon": "square",
+            "copy": "You raise the level of the game. Your leadership-level support helps accelerate climate resilience across communities and regions.",
             "ctaText": "Donate"
           },
           {

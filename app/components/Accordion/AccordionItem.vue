@@ -1,5 +1,7 @@
 <script setup lang="ts">
   import CtaAction from "../Button/CtaAction.vue";
+  import Form from "../Form/Form.vue";
+  import footerData from "../../../content/footer/footer.json";
   import {
     computed,
     nextTick,
@@ -8,6 +10,20 @@
     ref,
     watch,
   } from "vue";
+
+  type FormField = {
+    name: string;
+    type: string;
+    placeholder: string;
+    required?: boolean;
+  };
+
+  type FooterFormData = {
+    fields: FormField[];
+    checkbox: {
+      text: string;
+    };
+  };
 
   const props = defineProps<{
     id: string;
@@ -20,6 +36,8 @@
     icon: string;
     openId: string | null;
   }>();
+
+  const footerFormData = footerData as FooterFormData;
 
   const emit = defineEmits<{
     (e: "toggle", value: string): void;
@@ -136,7 +154,7 @@
         class="accordion-item__body-content flex column gap-lg justify-center items-center"
       >
         <NuxtImg
-          v-if="icon"
+          v-if="icon && id != 'becomeAFan'"
           class="accordion-item__body-content__icon"
           :src="icon"
           alt=""
@@ -147,7 +165,17 @@
         <p class="accordion-item__copy text text-body text-bold">
           {{ copy }}
         </p>
-        <CtaAction>
+
+        <div v-if="id === 'becomeAFan'" class="px-md">
+          <Form
+            class="accordion-item__form"
+            modifier="accordion"
+            :data="footerFormData"
+            submit-text="Subscribe"
+            checkbox-text="By adding your name and email, you are agreeing to receive Acumen email communications, consent to our <a href='https://acumen.org/terms-of-use/' target='_blank'>Terms of Use</a> and <a href='https://acumen.org/privacy-policy/' target='_blank'>Privacy Policy</a>, and confirm that you are at least eighteen (18) years of age.*"
+          />
+        </div>
+        <CtaAction v-if="id != 'becomeAFan'">
           {{ ctaText }}
         </CtaAction>
       </div>
@@ -208,7 +236,7 @@
         object-fit: contain;
       }
 
-      padding: 16px 18px 18px;
+      padding: 25px;
     }
 
     &__icon {
@@ -220,6 +248,24 @@
 
     &__copy {
       margin: 0;
+    }
+
+    &__form {
+      width: 100%;
+
+      :deep(.form__fields) {
+        flex-direction: column !important;
+      }
+
+      :deep(.form__field) {
+        flex: 0 0 100% !important;
+        width: 100%;
+      }
+
+      :deep(.form__submit-wrapper) {
+        flex-direction: column !important;
+        align-items: stretch !important;
+      }
     }
   }
 </style>

@@ -17,9 +17,15 @@
 
   const formData = ref<Record<string, string>>({});
 
-  defineProps<{
+  const props = defineProps<{
     data: FooterFormData;
+    modifier?: string;
+    submitText?: string;
+    checkboxText?: string;
   }>();
+
+  const modifierClass = (base: string) =>
+    props.modifier ? `${base}--${props.modifier}` : null;
 
   const handleSubmit = async () => {
     try {
@@ -39,9 +45,10 @@
 </script>
 
 <template>
-  <div class="form">
+  <div class="form" :class="modifierClass('form')">
     <form
       class="form__fields flex column md:row wrap gap-md"
+      :class="modifierClass('form__fields')"
       @submit.prevent="handleSubmit"
     >
       <input
@@ -49,32 +56,42 @@
         :key="field.name"
         v-model="formData[field.name]"
         class="form__field"
+        :class="modifierClass('form__field')"
         :type="field.type"
         :name="field.name"
-        :placeholder="field.placeholder"
+        :placeholder="`${field.required ? field.placeholder + '*' : field.placeholder}`"
         :required="field.required"
       />
       <div
         class="form__submit-wrapper flex column md:row items-start justify-space-between gap-md"
+        :class="modifierClass('form__submit-wrapper')"
       >
-        <div class="form__checkbox-wrapper">
+        <div
+          class="form__checkbox-wrapper"
+          :class="modifierClass('form__checkbox-wrapper')"
+        >
           <input
             id="checkbox"
             class="form__checkbox"
+            :class="modifierClass('form__checkbox')"
             type="checkbox"
             name="checkbox"
             required
           />
-          <label class="form__checkbox-label" for="checkbox">{{
-            data.checkbox.text
-          }}</label>
+          <label
+            class="form__checkbox-label"
+            :class="modifierClass('form__checkbox-label')"
+            for="checkbox"
+            v-html="props.checkboxText ?? data.checkbox.text"
+          ></label>
         </div>
 
         <button
           type="submit"
           class="form__submit bg-white hover:bg-yellow transition-all duration-default color-black text text-bold"
+          :class="modifierClass('form__submit')"
         >
-          Submit
+          {{ props.submitText ?? "Submit" }}
         </button>
       </div>
     </form>
@@ -120,6 +137,17 @@
 
         &:last-of-type {
           flex: 0 0 100%;
+        }
+      }
+
+      &--accordion {
+        .form__field {
+          padding: 10px;
+          border: 1px solid $color-white;
+
+          &::placeholder {
+            color: $color-white;
+          }
         }
       }
     }
@@ -178,6 +206,11 @@
           cursor: pointer;
           display: block;
           padding-left: $md;
+
+          & > a {
+            text-decoration: underline;
+            color: $color-white;
+          }
 
           @include lg-up {
             padding-left: $lg;

@@ -124,7 +124,6 @@
         :href="item.ctaLink"
         target="_blank"
         rel="noopener noreferrer"
-        base-class="bg-transparent hover:bg-white color-white text text-body  hover:color-black  border-1 border-white transition-all duration-default"
         modifier="cta-action__champ"
       >
         {{ item.ctaText }}

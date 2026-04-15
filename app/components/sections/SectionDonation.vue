@@ -9,7 +9,7 @@
     section: SectionItem;
   }>();
 
-  const openId = ref<string | null>("matchMvp");
+  const openId = ref<string | null>("theSuperSub");
   function onIllustrationClick(option: { id: string }) {
     openId.value = option.id;
   }
@@ -80,7 +80,7 @@
       class="section-donation__illustration grid-6 gap-lg md:gap-giga container"
     >
       <div class="span-6 lg:span-4 order-2 lg:order-1">
-        <DonationIllustration @click="onIllustrationClick" />
+        <DonationIllustration :active-id="openId" @click="onIllustrationClick" />
       </div>
       <div class="span-6 lg:span-2 order-1 lg:order-2">
         <Accordion

@@ -26,8 +26,8 @@
   const headerLogoClosedProgress = 0.97;
 
   const rootRef = ref<HTMLElement | null>(null);
-  const layerLeftRef = ref<HTMLElement | null>(null);
-  const layerRightRef = ref<HTMLElement | null>(null);
+  const layerARef = ref<HTMLElement | null>(null);
+  const layerBRef = ref<HTMLElement | null>(null);
 
   let ctx: { revert: () => void } | null = null;
   /** Set when the hero ScrollTrigger is created; used to scroll to the same “open” position as the scrub range end. */
@@ -37,6 +37,8 @@
   let lastTouchY: number | null = null;
   const TOP_TRIGGER_PX = 48;
   const END_DEADZONE_PX = 8;
+
+  const BREAKPOINT_SM_PX = 640;
 
   function getDocumentOffsetTop(el: HTMLElement): number {
     let top = 0;
@@ -73,102 +75,170 @@
   onMounted(() => {
     const { gsap } = useGSAP();
     const root = rootRef.value;
-    const left = layerLeftRef.value;
-    const right = layerRightRef.value;
+    const a = layerARef.value;
+    const b = layerBRef.value;
     const videoHeight = rootRef.value?.clientHeight ?? 0;
-    if (!gsap || !root || !left || !right || !videoHeight) return;
+    if (!gsap || !root || !a || !b || !videoHeight) return;
 
     ctx = gsap.context(() => {
       let lastHeaderLogoVisible: boolean | null = null;
 
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: document.documentElement,
-          start: "top top",
-          end: () => {
-            const el = props.scrollEndEl;
-            if (el) {
-              // Desktop: keep 50px breathing room from the viewport top.
-              return clampNonNegative(getDocumentOffsetTop(el) - 50);
-            }
-            return `+=${Math.round(videoHeight + 100)}`;
+      const mm = gsap.matchMedia();
+
+      const createTimeline = (axis: "x" | "y") => {
+        const endOffset = axis === "y" ? 25 : 50;
+        const tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: document.documentElement,
+            start: "top top",
+            end: () => {
+              const el = props.scrollEndEl;
+              if (el)
+                return clampNonNegative(getDocumentOffsetTop(el) - endOffset);
+              return `+=${Math.round(videoHeight + 100)}`;
+            },
+            scrub: 0.45,
+            invalidateOnRefresh: true,
+            onUpdate(self) {
+              const p = self.progress;
+              let next: boolean | null = null;
+              if (p >= headerLogoOpenProgress) next = true;
+              else if (p <= headerLogoClosedProgress) next = false;
+              if (next === null || next === lastHeaderLogoVisible) return;
+              lastHeaderLogoVisible = next;
+              emit("header-logo-visible", next);
+            },
           },
-          scrub: 0.45,
-          invalidateOnRefresh: true,
-          onUpdate(self) {
-            const p = self.progress;
-            let next: boolean | null = null;
-            if (p >= headerLogoOpenProgress) next = true;
-            else if (p <= headerLogoClosedProgress) next = false;
-            if (next === null || next === lastHeaderLogoVisible) return;
-            lastHeaderLogoVisible = next;
-            emit("header-logo-visible", next);
-          },
-        },
+        });
+
+        if (axis === "x") {
+          tl.to(a, { x: "-110vw", ease: "none" }, 0);
+          tl.to(b, { x: "110vw", ease: "none" }, 0);
+        } else {
+          tl.to(a, { y: "-110vh", ease: "none" }, 0);
+          tl.to(b, { y: "110vh", ease: "none" }, 0);
+        }
+
+        heroScrollTrigger = tl.scrollTrigger ?? null;
+        return tl;
+      };
+
+      // Mobile / touch-first behavior (no desktop wheel interception).
+      mm.add(`(max-width: ${BREAKPOINT_SM_PX - 1}px)`, () => {
+        createTimeline("y");
+
+        const getHeroEnd = () => heroScrollTrigger?.end ?? 0;
+        const atTop = () => window.scrollY <= TOP_TRIGGER_PX;
+        const withinHeroRange = () =>
+          window.scrollY > TOP_TRIGGER_PX &&
+          window.scrollY < getHeroEnd() - END_DEADZONE_PX;
+
+        const onWheel = (e: WheelEvent) => {
+          // No preventDefault on wheel: keep Safari/macOS scrolling safe.
+          if (isAutoScrolling) return;
+          if (e.deltaY > 0 && atTop()) {
+            scrollHeroOpen();
+          } else if (e.deltaY < 0 && withinHeroRange()) {
+            scrollHeroClosed();
+          }
+        };
+
+        const onTouchStart = (e: TouchEvent) => {
+          lastTouchY = e.touches?.[0]?.clientY ?? null;
+        };
+
+        const onTouchMove = (e: TouchEvent) => {
+          if (isAutoScrolling) return;
+          const y = e.touches?.[0]?.clientY;
+          if (y == null || lastTouchY == null) return;
+          const deltaY = lastTouchY - y; // >0 means user swiped up (scrolling down)
+          lastTouchY = y;
+
+          if (!e.cancelable) return;
+          if (deltaY > 0 && atTop()) {
+            e.preventDefault();
+            scrollHeroOpen();
+          } else if (deltaY < 0 && withinHeroRange()) {
+            e.preventDefault();
+            scrollHeroClosed();
+          }
+        };
+
+        const onKeyDown = (e: KeyboardEvent) => {
+          if (isAutoScrolling) return;
+          const down =
+            e.key === "ArrowDown" ||
+            e.key === "PageDown" ||
+            e.key === " " ||
+            e.key === "Spacebar";
+          const up = e.key === "ArrowUp" || e.key === "PageUp";
+          if (down && atTop()) scrollHeroOpen();
+          else if (up && withinHeroRange()) scrollHeroClosed();
+        };
+
+        window.addEventListener("wheel", onWheel, { passive: true });
+        window.addEventListener("touchstart", onTouchStart, { passive: true });
+        window.addEventListener("touchmove", onTouchMove, { passive: false });
+        window.addEventListener("keydown", onKeyDown);
+
+        removeMagnetScrollListeners = () => {
+          window.removeEventListener("wheel", onWheel);
+          window.removeEventListener("touchstart", onTouchStart);
+          window.removeEventListener("touchmove", onTouchMove);
+          window.removeEventListener("keydown", onKeyDown);
+        };
+
+        return () => {
+          removeMagnetScrollListeners?.();
+          removeMagnetScrollListeners = null;
+        };
       });
 
-      tl.to(left, { x: "-110vw", ease: "none" }, 0);
-      tl.to(right, { x: "110vw", ease: "none" }, 0);
+      // Desktop / mouse-wheel: never prevent native scroll.
+      mm.add(`(min-width: ${BREAKPOINT_SM_PX}px)`, () => {
+        createTimeline("x");
 
-      heroScrollTrigger = tl.scrollTrigger ?? null;
+        const getHeroEnd = () => heroScrollTrigger?.end ?? 0;
+        const atTop = () => window.scrollY <= TOP_TRIGGER_PX;
+        const withinHeroRange = () =>
+          window.scrollY > TOP_TRIGGER_PX &&
+          window.scrollY < getHeroEnd() - END_DEADZONE_PX;
 
-      const getHeroEnd = () => heroScrollTrigger?.end ?? 0;
-      const atTop = () => window.scrollY <= TOP_TRIGGER_PX;
-      const withinHeroRange = () =>
-        window.scrollY > TOP_TRIGGER_PX &&
-        window.scrollY < getHeroEnd() - END_DEADZONE_PX;
+        const onWheel = (e: WheelEvent) => {
+          // No preventDefault: preserve native scroll (Safari safety).
+          if (isAutoScrolling) return;
+          if (e.deltaY > 0 && atTop()) {
+            scrollHeroOpen();
+          } else if (e.deltaY < 0 && withinHeroRange()) {
+            scrollHeroClosed();
+          }
+        };
 
-      const onWheel = (e: WheelEvent) => {
-        if (isAutoScrolling) return;
-        if (e.deltaY > 0 && atTop()) {
-          // Ensure we always "magnet open" instead of letting the browser advance a few px first.
-          e.preventDefault();
-          scrollHeroOpen();
-        } else if (e.deltaY < 0 && withinHeroRange()) {
-          e.preventDefault();
-          scrollHeroClosed();
-        }
-      };
+        const onKeyDown = (e: KeyboardEvent) => {
+          if (isAutoScrolling) return;
+          const down =
+            e.key === "ArrowDown" ||
+            e.key === "PageDown" ||
+            e.key === " " ||
+            e.key === "Spacebar";
+          const up = e.key === "ArrowUp" || e.key === "PageUp";
+          if (down && atTop()) scrollHeroOpen();
+          else if (up && withinHeroRange()) scrollHeroClosed();
+        };
 
-      const onTouchStart = (e: TouchEvent) => {
-        lastTouchY = e.touches?.[0]?.clientY ?? null;
-      };
-      const onTouchMove = (e: TouchEvent) => {
-        if (isAutoScrolling) return;
-        const y = e.touches?.[0]?.clientY;
-        if (y == null || lastTouchY == null) return;
-        const deltaY = lastTouchY - y; // >0 means user swiped up (scrolling down)
-        lastTouchY = y;
-        if (deltaY > 0 && atTop()) {
-          e.preventDefault();
-          scrollHeroOpen();
-        } else if (deltaY < 0 && withinHeroRange()) {
-          e.preventDefault();
-          scrollHeroClosed();
-        }
-      };
+        window.addEventListener("wheel", onWheel, { passive: true });
+        window.addEventListener("keydown", onKeyDown);
 
-      const onKeyDown = (e: KeyboardEvent) => {
-        if (isAutoScrolling) return;
-        const down =
-          e.key === "ArrowDown" ||
-          e.key === "PageDown" ||
-          e.key === " " ||
-          e.key === "Spacebar";
-        const up = e.key === "ArrowUp" || e.key === "PageUp";
-        if (down && atTop()) scrollHeroOpen();
-        else if (up && withinHeroRange()) scrollHeroClosed();
-      };
+        removeMagnetScrollListeners = () => {
+          window.removeEventListener("wheel", onWheel);
+          window.removeEventListener("keydown", onKeyDown);
+        };
 
-      window.addEventListener("wheel", onWheel, { passive: false });
-      window.addEventListener("touchstart", onTouchStart, { passive: true });
-      window.addEventListener("touchmove", onTouchMove, { passive: false });
-      window.addEventListener("keydown", onKeyDown);
+        return () => {};
+      });
+
       removeMagnetScrollListeners = () => {
-        window.removeEventListener("wheel", onWheel);
-        window.removeEventListener("touchstart", onTouchStart);
-        window.removeEventListener("touchmove", onTouchMove);
-        window.removeEventListener("keydown", onKeyDown);
+        mm.revert();
       };
     }, root);
   });
@@ -187,8 +257,8 @@
   <div>
     <div ref="rootRef" class="section-hero-video relative">
       <div
-        ref="layerLeftRef"
-        class="section-hero-video__layer section-hero-video__layer__left"
+        ref="layerARef"
+        class="section-hero-video__layer section-hero-video__layer__a"
       >
         <VideoLoop
           v-if="videoSrc"
@@ -197,7 +267,26 @@
           video-class="cover absolute top-0 left-0 w-full h-full section-hero-video__video section-hero-video__video__1 z-1"
         />
 
-        <div class="section-hero-video__overlay flex row items-end">
+        <!-- Mobile overlay -->
+        <div
+          class="section-hero-video__overlay section-hero-video__overlay--mobile flex column items-center justify-center"
+        >
+          <img
+            class="section-hero-video__icon mb-lg"
+            src="/_include/icons/hero_icon.svg"
+            :alt="title ?? ''"
+          />
+          <h1
+            class="text text-heading-xl text-black color-white text-align-center px-md"
+          >
+            {{ subhead }}
+          </h1>
+        </div>
+
+        <!-- Desktop overlay (left panel) -->
+        <div
+          class="section-hero-video__overlay section-hero-video__overlay--desktop-left flex row items-end"
+        >
           <div>
             <img
               class="section-hero-video__icon mb-lg"
@@ -212,8 +301,8 @@
       </div>
 
       <div
-        ref="layerRightRef"
-        class="section-hero-video__layer section-hero-video__layer__right"
+        ref="layerBRef"
+        class="section-hero-video__layer section-hero-video__layer__b"
       >
         <VideoLoop
           v-if="videoSrc"
@@ -222,8 +311,39 @@
           video-class="cover absolute top-0 left-0 w-full h-full section-hero-video__video section-hero-video__video__2"
         />
 
+        <!-- Mobile bottom bar -->
         <div
-          class="section-hero-video__overlay-right flex column gap-md justify-space-between items-center py-md"
+          class="section-hero-video__overlay-right section-hero-video__overlay-right--mobile flex row justify-space-between items-center py-md px-md"
+        >
+          <div
+            class="section-hero-video__swipe-cta flex column items-center justify-center gap"
+            role="button"
+            tabindex="0"
+            style="pointer-events: all"
+            @click="scrollHeroOpen"
+            @keydown.enter.prevent="scrollHeroOpen"
+            @keydown.space.prevent="scrollHeroOpen"
+          >
+            <span class="text text-body text-bold color-white">Swipe down</span>
+            <PulseImage
+              src="/_include/icons/fan.svg"
+              alt=""
+              :scale="1.18"
+              :speed="1.1"
+              style="width: 28px; height: auto"
+            />
+          </div>
+
+          <NuxtImg
+            class="section-hero-video__logo"
+            src="/_include/ui/Acumen-Logo-Top.svg"
+            alt="Acumen"
+          />
+        </div>
+
+        <!-- Desktop right rail -->
+        <div
+          class="section-hero-video__overlay-right section-hero-video__overlay-right--desktop flex column gap-md justify-space-between items-center py-md"
         >
           <NuxtImg
             class="section-hero-video__logo"
@@ -257,7 +377,7 @@
 
 <style scoped lang="scss">
   .section-hero-video {
-    aspect-ratio: 1307/600;
+    aspect-ratio: 313/454;
     overflow: hidden;
     pointer-events: none;
 
@@ -265,34 +385,26 @@
       position: absolute;
       inset: 0;
       will-change: transform;
-      width: calc(100% - 64px);
+      width: 100%;
       margin: 0 auto;
-
-      @include lg-up {
-        width: calc(100% - 128px);
-      }
     }
 
     &__overlay {
       position: absolute;
-      width: 81.1%;
-      height: calc(100% - 64px);
+      width: 100%;
+      height: 75.55%;
       left: 0;
-      top: 50%;
-      transform: translateY(-50%);
-      padding: 0 0 40px 30px;
+      top: 0;
+      padding: 0 0 25px;
       z-index: 1;
     }
 
     &__overlay-right {
       position: absolute;
-      top: 0;
-      right: 0;
-      top: 50%;
-      transform: translateY(-50%);
-      height: calc(100% - 64px);
-      width: 19.1%;
-      padding-bottom: 40px;
+      left: 0;
+      bottom: 0;
+      height: 24.44%;
+      width: 100%;
       z-index: 1;
     }
 
@@ -310,38 +422,105 @@
     &__logo {
       width: 50px;
       height: auto;
-
-      @include lg-up {
-        width: 100px;
-      }
     }
 
     &__icon {
       display: block;
       width: 112px;
       height: auto;
-
-      @include lg-up {
-        width: 245px;
-      }
     }
 
     &__video {
       &__1 {
-        -webkit-mask-image: url("/_include/ui/video-mask-left.svg");
-        mask-image: url("/_include/ui/video-mask-left.svg");
+        -webkit-mask-image: url("/_include/ui/video-mask-top-mobile.svg");
+        mask-image: url("/_include/ui/video-mask-top-mobile.svg");
         mask-repeat: no-repeat;
-        -webkit-mask-size: 81.1% 100%;
-        mask-size: 81.1% 100%;
-        mask-position: left center;
+        -webkit-mask-size: 100% 76.55%;
+        mask-size: 100% 76.55%;
+        mask-position: left top;
       }
       &__2 {
-        -webkit-mask-image: url("/_include/ui/video-mask-right.svg");
-        mask-image: url("/_include/ui/video-mask-right.svg");
+        -webkit-mask-image: url("/_include/ui/video-mask-bottom-mobile.svg");
+        mask-image: url("/_include/ui/video-mask-bottom-mobile.svg");
         mask-repeat: no-repeat;
-        -webkit-mask-size: 19.1% 100%;
-        mask-size: 19.1% 100%;
-        mask-position: right center;
+        -webkit-mask-size: 100% 24.44%;
+        mask-size: 100% 24.44%;
+        mask-position: left bottom;
+      }
+    }
+
+    // Show mobile overlays by default.
+    &__overlay--desktop-left,
+    &__overlay-right--desktop {
+      display: none;
+    }
+
+    @include sm-up {
+      aspect-ratio: 1307/600;
+
+      &__layer {
+        width: calc(100% - 64px);
+        @include lg-up {
+          width: calc(100% - 128px);
+        }
+      }
+
+      &__overlay {
+        width: 81.1%;
+        height: calc(100% - 64px);
+        top: 50%;
+        transform: translateY(-50%);
+        padding: 0 0 40px 30px;
+      }
+
+      &__overlay-right {
+        right: 0;
+        left: auto;
+        bottom: auto;
+        top: 50%;
+        transform: translateY(-50%);
+        height: calc(100% - 64px);
+        width: 19.1%;
+        padding-bottom: 40px;
+      }
+
+      &__logo {
+        @include lg-up {
+          width: 100px;
+        }
+      }
+
+      &__icon {
+        @include lg-up {
+          width: 245px;
+        }
+      }
+
+      &__video {
+        &__1 {
+          -webkit-mask-image: url("/_include/ui/video-mask-left.svg");
+          mask-image: url("/_include/ui/video-mask-left.svg");
+          -webkit-mask-size: 81.1% 100%;
+          mask-size: 81.1% 100%;
+          mask-position: left center;
+        }
+        &__2 {
+          -webkit-mask-image: url("/_include/ui/video-mask-right.svg");
+          mask-image: url("/_include/ui/video-mask-right.svg");
+          -webkit-mask-size: 19.1% 100%;
+          mask-size: 19.1% 100%;
+          mask-position: right center;
+        }
+      }
+
+      // Toggle desktop overlays at sm-up.
+      &__overlay--mobile,
+      &__overlay-right--mobile {
+        display: none;
+      }
+      &__overlay--desktop-left,
+      &__overlay-right--desktop {
+        display: flex;
       }
     }
   }

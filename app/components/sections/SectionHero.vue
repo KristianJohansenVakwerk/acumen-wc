@@ -1,7 +1,6 @@
 <script setup lang="ts">
   import type { SectionItem } from "../../../schemaTypes/sections";
   import SectionHeroVideo from "@/components/SectionHeroVideo/SectionHeroVideo.vue";
-  import SectionHeroVideoTouch from "@/components/SectionHeroVideo/SectionHeroVideoTouch.vue";
   import { ref } from "vue";
   defineProps<{
     section: SectionItem;
@@ -21,17 +20,7 @@
       class="section section-hero flex column gap-giga fixed top-0 left-0 w-full h-auto z-99"
     >
       <div ref="sectionHeroVideoRef" class="section-hero__videos relative z-20">
-        <div class="block sm:none relative z-20 px-md pt-md">
-          <SectionHeroVideoTouch
-            :video-src="section.props.videoSrc ?? ''"
-            :video-poster="section.props.videoPoster as string"
-            :title="section.props.title"
-            :subhead="section.props.subhead"
-            :scroll-end-el="headerLogoRef"
-            @header-logo-visible="onHeaderLogoVisible"
-          />
-        </div>
-        <div class="none sm:block relative z-20">
+        <div class="relative z-20 px-md pt-md sm:px-none sm:pt-none">
           <SectionHeroVideo
             :video-src="section.props.videoSrc ?? ''"
             :video-poster="section.props.videoPoster as string"
@@ -81,7 +70,7 @@
 
     &__logo,
     &__richtext {
-      margin-top: calc(75svh);
+      margin-top: calc(454px);
 
       @include sm-up {
         margin-top: 50vw;
@@ -89,7 +78,7 @@
     }
 
     &__richtext {
-      padding-top: 0px;
+      padding-top: 100px;
 
       @include md-up {
         padding-top: 100px;
@@ -101,8 +90,8 @@
     }
 
     &__logo {
-      left: 100px;
-      top: 25px;
+      left: 25px;
+      top: 0px;
       width: 200px;
       height: auto;
 

@@ -115,7 +115,8 @@
       const getHeroEnd = () => heroScrollTrigger?.end ?? 0;
       const atTop = () => window.scrollY <= TOP_TRIGGER_PX;
       const withinHeroRange = () =>
-        window.scrollY > TOP_TRIGGER_PX && window.scrollY < getHeroEnd() - END_DEADZONE_PX;
+        window.scrollY > TOP_TRIGGER_PX &&
+        window.scrollY < getHeroEnd() - END_DEADZONE_PX;
 
       const onWheel = (e: WheelEvent) => {
         if (isAutoScrolling) return;
@@ -149,7 +150,10 @@
       const onKeyDown = (e: KeyboardEvent) => {
         if (isAutoScrolling) return;
         const down =
-          e.key === "ArrowDown" || e.key === "PageDown" || e.key === " " || e.key === "Spacebar";
+          e.key === "ArrowDown" ||
+          e.key === "PageDown" ||
+          e.key === " " ||
+          e.key === "Spacebar";
         const up = e.key === "ArrowUp" || e.key === "PageUp";
         if (down && atTop()) scrollHeroOpen();
         else if (up && withinHeroRange()) scrollHeroClosed();

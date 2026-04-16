@@ -115,8 +115,8 @@
           tl.to(a, { x: "-110vw", ease: "none" }, 0);
           tl.to(b, { x: "110vw", ease: "none" }, 0);
         } else {
-          tl.to(a, { y: "-110vh", ease: "none" }, 0);
-          tl.to(b, { y: "110vh", ease: "none" }, 0);
+          tl.to(a, { x: "-110vw", ease: "none" }, 0);
+          tl.to(b, { x: "110vw", ease: "none" }, 0);
         }
 
         heroScrollTrigger = tl.scrollTrigger ?? null;
@@ -377,7 +377,7 @@
 
 <style scoped lang="scss">
   .section-hero-video {
-    aspect-ratio: 313/454;
+    aspect-ratio: 313/474;
     overflow: hidden;
     pointer-events: none;
 
@@ -385,14 +385,14 @@
       position: absolute;
       inset: 0;
       will-change: transform;
-      width: 100%;
+      width: calc(100% - 50px);
       margin: 0 auto;
     }
 
     &__overlay {
       position: absolute;
       width: 100%;
-      height: 75.55%;
+      height: 62.55%;
       left: 0;
       top: 0;
       padding: 0 0 25px;
@@ -403,7 +403,7 @@
       position: absolute;
       left: 0;
       bottom: 0;
-      height: 24.44%;
+      height: 55.44%;
       width: 100%;
       z-index: 1;
     }
@@ -435,16 +435,16 @@
         -webkit-mask-image: url("/_include/ui/video-mask-top-mobile.svg");
         mask-image: url("/_include/ui/video-mask-top-mobile.svg");
         mask-repeat: no-repeat;
-        -webkit-mask-size: 100% 76.55%;
-        mask-size: 100% 76.55%;
+        -webkit-mask-size: 100% 62.55%;
+        mask-size: 100% 62.55%;
         mask-position: left top;
       }
       &__2 {
         -webkit-mask-image: url("/_include/ui/video-mask-bottom-mobile.svg");
         mask-image: url("/_include/ui/video-mask-bottom-mobile.svg");
         mask-repeat: no-repeat;
-        -webkit-mask-size: 100% 24.44%;
-        mask-size: 100% 24.44%;
+        -webkit-mask-size: 100% 55.44%;
+        mask-size: 100% 55.44%;
         mask-position: left bottom;
       }
     }
@@ -460,6 +460,7 @@
 
       &__layer {
         width: calc(100% - 64px);
+        margin: 0 auto;
         @include lg-up {
           width: calc(100% - 128px);
         }

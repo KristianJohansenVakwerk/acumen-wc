@@ -47,6 +47,16 @@ export default defineNuxtConfig({
         { rel: "apple-touch-icon", href: "/apple-touch-icon.png" },
         { rel: "stylesheet", href: "https://use.typekit.net/pzv2tcy.css" },
       ],
+      script: [
+        {
+          innerHTML:
+            '(function(f,u,n,r,a,i,s,e){var data={window:window,document:document,tag:"script",data:"funraise",orgId:f,uri:u,common:n,client:r,script:a};var scripts;var funraiseScript;data.window[data.data]=data.window[data.data]||[];if(data.window[data.data].scriptIsLoading||data.window[data.data].scriptIsLoaded)return;data.window[data.data].loading=true;data.window[data.data].push("init",data);scripts=data.document.getElementsByTagName(data.tag)[0];funraiseScript=data.document.createElement(data.tag);funraiseScript.async=true;funraiseScript.src=data.uri+data.common+data.script+"?orgId="+data.orgId;scripts.parentNode.insertBefore(funraiseScript,scripts)})("d3718487-d043-4e2e-bed0-ebd0002d534c","https://assets.funraise.io","/widget/common/2.0","/widget/client","/inject-form.js");',
+        },
+        {
+          innerHTML:
+            "window.funraise.push('create', { form: 48855 }, { mode: 'test', defaultValues: { amount: 100} });",
+        },
+      ],
     },
   },
   modules: [

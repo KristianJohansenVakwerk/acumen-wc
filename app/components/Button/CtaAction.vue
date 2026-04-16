@@ -74,18 +74,7 @@
     type="button"
     aria-label="Donate"
     data-formId="48855"
-    style="
-      padding: 12px 35px;
-      font-size: 18px;
-      border-radius: 20px;
-      margin: 10px auto;
-      background-color: #ffffff;
-      color: #000000;
-      border: none;
-      outline: none;
-      cursor: pointer;
-      display: block;
-    "
+    :class="finalClass"
   >
     Donate
   </button>
@@ -93,7 +82,7 @@
     
     v-bind="$attrs"
     :type="buttonType"
-    :class="finalClass"
+    
     @click="$emit('click', $event)"
   >
     <slot />

@@ -1,0 +1,6 @@
+name = "climate-resilience-report"
+pages_build_output_dir = "dist"
+
+[vars]
+NUXT_PUBLIC_HUBSPOT_PORTAL_ID = "21977584"
+NUXT_PUBLIC_HUBSPOT_FORM_ID = "6eafd7ff-1388-4ddb-ae5a-dee8cbd1b668"

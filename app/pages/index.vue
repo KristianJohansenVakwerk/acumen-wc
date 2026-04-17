@@ -20,10 +20,6 @@
 
   const validatedPage = sectionsDocSchema.parse(page.value as unknown);
   const sections = validatedPage.sections;
-
-  onMounted(() => {
-    console.log("can kevin see this?");
-  });
 </script>
 
 <template>

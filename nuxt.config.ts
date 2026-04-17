@@ -13,6 +13,7 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   runtimeConfig: {
     HUBSPOT_TOKEN: env.HUBSPOT_TOKEN,
+    FUNRAISE_API_KEY: env.FUNRAISE_API_KEY,
     public: {
       HUBSPOT_PORTAL_ID: env.NUXT_PUBLIC_HUBSPOT_PORTAL_ID,
       HUBSPOT_FORM_ID: env.NUXT_PUBLIC_HUBSPOT_FORM_ID,
@@ -55,6 +56,10 @@ export default defineNuxtConfig({
         {
           innerHTML:
             "window.funraise.push('create', { form: 48855 }, { mode: 'test', defaultValues: { amount: 100} });",
+        },
+        {
+          innerHTML:
+            "window.funraise.push('config', { form: 48855 }, { mode: 'test', defaultValues: { amount: 100} });",
         },
       ],
     },

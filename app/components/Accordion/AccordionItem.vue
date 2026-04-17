@@ -116,21 +116,6 @@
     await nextTick();
     updateBodyHeight();
   };
-
-  const onCtaClick = async () => {
-    console.log("CTA clicked", { id: props.id, title: props.title });
-    try {
-      await $fetch("/api/cta-click", {
-        method: "POST",
-        body: {
-          id: props.id,
-          amount: props.amount,
-        },
-      });
-    } catch (error) {
-      console.error("Failed to POST /api/cta-click", error);
-    }
-  };
 </script>
 
 <template>
@@ -190,7 +175,7 @@
             checkbox-text="By adding your name and email, you are agreeing to receive Acumen email communications, consent to our <a href='https://acumen.org/terms-of-use/' target='_blank'>Terms of Use</a> and <a href='https://acumen.org/privacy-policy/' target='_blank'>Privacy Policy</a>, and confirm that you are at least eighteen (18) years of age.*"
           />
         </div>
-        <CtaAction v-if="id != 'becomeAFan'" @click="onCtaClick">
+        <CtaAction v-if="id != 'becomeAFan'" :amount="amount as number">
           {{ ctaText }}
         </CtaAction>
       </div>

@@ -22,6 +22,7 @@
       target?: string | null;
       rel?: string | null;
       buttonType?: "button" | "submit" | "reset";
+      amount?: number | null;
     }>(),
     {
       type: "button",
@@ -32,6 +33,7 @@
       target: null,
       rel: null,
       buttonType: "button",
+      amount: null,
     }
   );
 
@@ -74,6 +76,8 @@
     type="button"
     aria-label="Donate"
     data-formId="48855"
+    :data-amount="amount ?? null"
+    data-frequency="o"
     :class="finalClass"
   >
     Donate

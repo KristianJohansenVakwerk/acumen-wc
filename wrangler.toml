@@ -1,4 +1,4 @@
-name = "acumen-wccl"
+name = "acumen-wc"
 pages_build_output_dir = "dist"
 
 [vars]

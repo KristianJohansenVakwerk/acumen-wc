@@ -7,7 +7,7 @@
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "cloudflare:deploy": "rm -rf .nuxt node_modules/.cache .output && npm run build && npx wrangler pages deploy .output/public --project-name=xxx",
+    "cloudflare:deploy": "rm -rf .nuxt node_modules/.cache dist && npm run build && npx wrangler pages deploy dist --project-name=acumen-wc",
     "postinstall": "nuxt prepare"
   },
   "dependencies": {

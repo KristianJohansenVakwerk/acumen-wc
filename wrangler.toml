@@ -1,5 +1,5 @@
 name = "acumen-wccl"
-pages_build_output_dir = ".output/public"
+pages_build_output_dir = "dist"
 
 [vars]
 NUXT_PUBLIC_HUBSPOT_PORTAL_ID = "21977584"

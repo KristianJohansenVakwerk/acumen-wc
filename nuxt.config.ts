@@ -60,11 +60,11 @@ export default defineNuxtConfig({
         },
         {
           innerHTML:
-            "window.funraise.push('create', { form: 48851 }, {  defaultValues: { amount: 100} });",
+            "window.funraise.push('create', { form: 49591 }, {  defaultValues: { amount: 100} });",
         },
         {
           innerHTML:
-            "window.funraise.push('config', { form: 48851 }, { defaultValues: { amount: 100 }, i18n: { locale: window.navigator.language, phrases: { donor_information_email_opt_in: { 'en': 'By adding your name and email, you are agreeing to receive Acumen email communications, consent to our Terms of Use and Privacy Policy (as linked below), and confirm that you are at least eighteen (18) years of age.*' }} } });",
+            "window.funraise.push('config', { form: 49591 }, { defaultValues: { amount: 100 }, i18n: { locale: window.navigator.language, phrases: { donor_information_email_opt_in: { 'en': 'By adding your name and email, you are agreeing to receive Acumen email communications, consent to our Terms of Use and Privacy Policy (as linked below), and confirm that you are at least eighteen (18) years of age.*' }} } });",
         },
       ],
     },

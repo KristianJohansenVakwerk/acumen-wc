@@ -301,57 +301,81 @@
     </svg>
 
     <div
-      class="iconLabel iconLabel__left text text-map color-black text-black"
-      :class="{ 'is-hovered': hoveredId === 'becomeAFan' }"
+      class="iconLabel iconLabel__left text text-map color-white text-black"
+      :class="{
+        'is-hovered': hoveredId === 'becomeAFan',
+        'is-active': props.activeId === 'becomeAFan',
+      }"
     >
       Become a Fan
     </div>
 
     <div
-      class="iconLabel iconLabel__top__left text text-map color-black text-black"
-      :class="{ 'is-hovered': hoveredId === 'theBackline' }"
+      class="iconLabel iconLabel__top__left text text-map color-white text-black"
+      :class="{
+        'is-hovered': hoveredId === 'theBackline',
+        'is-active': props.activeId === 'theBackline',
+      }"
     >
       The Backline
     </div>
     <div
-      class="iconLabel iconLabel__top__right text text-map color-black text-black"
-      :class="{ 'is-hovered': hoveredId === 'theBackline' }"
+      class="iconLabel iconLabel__top__right text text-map color-white text-black"
+      :class="{
+        'is-hovered': hoveredId === 'theBackline',
+        'is-active': props.activeId === 'theBackline',
+      }"
     >
       The Backline
     </div>
 
     <div
-      class="iconLabel iconLabel__top__center text text-map text-center color-black text-black"
-      :class="{ 'is-hovered': hoveredId === 'matchMvp' }"
+      class="iconLabel iconLabel__top__center text text-map text-center color-white text-black"
+      :class="{
+        'is-hovered': hoveredId === 'matchMvp',
+        'is-active': props.activeId === 'matchMvp',
+      }"
     >
       Match <br />
       MVP
     </div>
 
     <div
-      class="iconLabel iconLabel__right text text-map color-black text-black"
-      :class="{ 'is-hovered': hoveredId === 'theSuperSub' }"
+      class="iconLabel iconLabel__right text text-map color-white text-black"
+      :class="{
+        'is-hovered': hoveredId === 'theSuperSub',
+        'is-active': props.activeId === 'theSuperSub',
+      }"
     >
       The Super Sub
     </div>
 
     <div
-      class="iconLabel iconLabel__bottom__left text text-map color-black text-black"
-      :class="{ 'is-hovered': hoveredId === 'theMidfieldEngine' }"
+      class="iconLabel iconLabel__bottom__left text text-map color-white text-black"
+      :class="{
+        'is-hovered': hoveredId === 'theMidfieldEngine',
+        'is-active': props.activeId === 'theMidfieldEngine',
+      }"
     >
       Midfield <span class="midfield-engine-break">Engine</span>
     </div>
 
     <div
-      class="iconLabel iconLabel__bottom__center text text-map text-center color-black text-black"
-      :class="{ 'is-hovered': hoveredId === 'matchMvp' }"
+      class="iconLabel iconLabel__bottom__center text text-map text-center color-white text-black"
+      :class="{
+        'is-hovered': hoveredId === 'matchMvp',
+        'is-active': props.activeId === 'matchMvp',
+      }"
     >
       Match <br />
       MVP
     </div>
     <div
-      class="iconLabel iconLabel__bottom__right text text-map color-black text-black"
-      :class="{ 'is-hovered': hoveredId === 'theMidfieldEngine' }"
+      class="iconLabel iconLabel__bottom__right text text-map color-white text-black"
+      :class="{
+        'is-hovered': hoveredId === 'theMidfieldEngine',
+        'is-active': props.activeId === 'theMidfieldEngine',
+      }"
     >
       Midfield <span class="midfield-engine-break">Engine</span>
     </div>
@@ -405,7 +429,8 @@
     transform: translate(-0%, -50%);
     pointer-events: none;
 
-    &.is-hovered {
+    &.is-hovered,
+    &.is-active {
       color: $color-black-base !important;
     }
 

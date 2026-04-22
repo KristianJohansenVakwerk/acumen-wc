@@ -34,7 +34,7 @@
       rel: null,
       buttonType: "button",
       amount: null,
-    }
+    },
   );
 
   defineEmits<{
@@ -75,7 +75,7 @@
     v-else
     type="button"
     aria-label="Donate"
-    data-formId="48851"
+    data-formId="49591"
     :data-amount="amount ?? null"
     data-frequency="o"
     :class="finalClass"

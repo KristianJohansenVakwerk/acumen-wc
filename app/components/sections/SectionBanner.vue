@@ -75,7 +75,7 @@
     async () => {
       await nextTick();
       recompute();
-    }
+    },
   );
 
   watch(speedPxPerSecond, () => {
@@ -125,7 +125,9 @@
               <component :is="checkBatchIcon(item.batch)" color="#FF3500" />
             </span>
 
-            <span class="marquee__name">{{ item.name }}</span>
+            <span class="marquee__name"
+              >{{ item.firstname }} {{ item.lastname }}</span
+            >
           </span>
         </div>
 
@@ -140,7 +142,9 @@
               <span class="marquee__batch">
                 <component :is="checkBatchIcon(item.batch)" color="#FF3500" />
               </span>
-              <span class="marquee__name">{{ item.name }}</span>
+              <span class="marquee__name"
+                >{{ item.firstname }} {{ item.lastname }}</span
+              >
             </span>
           </div>
           <div class="marquee__track" aria-hidden="true">

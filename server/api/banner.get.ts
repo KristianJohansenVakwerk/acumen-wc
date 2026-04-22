@@ -19,8 +19,13 @@ export default defineEventHandler(async () => {
           "X-Api-Key": apiKey,
         },
         query: {},
-      }
+      },
     );
+
+    console.log("response", response);
+    const bannerData = mapBannerData(response as any);
+    console.log("bannerData", bannerData);
+    return bannerData;
   } catch (error) {
     console.error("Failed to fetch banner data", error);
     return [];
@@ -31,3 +36,11 @@ export default defineEventHandler(async () => {
     { batch: "backline", name: "Name Namesen" },
   ];
 });
+
+const mapBannerData = (data: any) => {
+  if (!data || data.length === 0) return [];
+  return data.map((item: any) => ({
+    firstname: item.transaction.billingFirstName,
+    lastname: item.transaction.billingLastName,
+  }));
+};

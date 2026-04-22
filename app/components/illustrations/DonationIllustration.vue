@@ -301,27 +301,27 @@
     </svg>
 
     <div
-      class="iconLabel iconLabel__left text text-map color-white text-black"
+      class="iconLabel iconLabel__left text text-map color-black text-black"
       :class="{ 'is-hovered': hoveredId === 'becomeAFan' }"
     >
       Become a Fan
     </div>
 
     <div
-      class="iconLabel iconLabel__top__left text text-map color-white text-black"
+      class="iconLabel iconLabel__top__left text text-map color-black text-black"
       :class="{ 'is-hovered': hoveredId === 'theBackline' }"
     >
       The Backline
     </div>
     <div
-      class="iconLabel iconLabel__top__right text text-map color-white text-black"
+      class="iconLabel iconLabel__top__right text text-map color-black text-black"
       :class="{ 'is-hovered': hoveredId === 'theBackline' }"
     >
       The Backline
     </div>
 
     <div
-      class="iconLabel iconLabel__top__center text text-map text-center color-white text-black"
+      class="iconLabel iconLabel__top__center text text-map text-center color-black text-black"
       :class="{ 'is-hovered': hoveredId === 'matchMvp' }"
     >
       Match <br />
@@ -336,21 +336,21 @@
     </div>
 
     <div
-      class="iconLabel iconLabel__bottom__left text text-map color-white text-black"
+      class="iconLabel iconLabel__bottom__left text text-map color-black text-black"
       :class="{ 'is-hovered': hoveredId === 'theMidfieldEngine' }"
     >
       Midfield <span class="midfield-engine-break">Engine</span>
     </div>
 
     <div
-      class="iconLabel iconLabel__bottom__center text text-map text-center color-white text-black"
+      class="iconLabel iconLabel__bottom__center text text-map text-center color-black text-black"
       :class="{ 'is-hovered': hoveredId === 'matchMvp' }"
     >
       Match <br />
       MVP
     </div>
     <div
-      class="iconLabel iconLabel__bottom__right text text-map color-white text-black"
+      class="iconLabel iconLabel__bottom__right text text-map color-black text-black"
       :class="{ 'is-hovered': hoveredId === 'theMidfieldEngine' }"
     >
       Midfield <span class="midfield-engine-break">Engine</span>

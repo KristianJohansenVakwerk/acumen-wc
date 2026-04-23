@@ -4,6 +4,7 @@
   import midfieldEngine from "@/components/icons/midfield-engine.vue";
   import superSub from "@/components/icons/super-sub.vue";
   import matchMvp from "@/components/icons/match-mvp.vue";
+  import fan from "@/components/icons/fan.vue";
   import {
     computed,
     nextTick,
@@ -94,10 +95,9 @@
     if (name === "midfield-engine") return midfieldEngine;
     if (name === "super-sub") return superSub;
     if (name === "match-mvp") return matchMvp;
+    if (name === "fan") return fan;
     return null;
   };
-
-  console.log(data);
 </script>
 
 <template>
@@ -158,7 +158,9 @@
               <span class="marquee__batch">
                 <component :is="checkBatchIcon(item.batch)" color="#FF3500" />
               </span>
-              <span class="marquee__name">{{ item.name }}</span>
+              <span class="marquee__name"
+                >{{ item.firstname }} {{ item.lastname }}</span
+              >
             </span>
           </div>
         </div>

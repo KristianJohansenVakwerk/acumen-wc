@@ -46,5 +46,14 @@ const mapBannerData = (data: any) => {
     .map((item: any) => ({
       firstname: item.transaction.billingFirstName,
       lastname: item.transaction.billingLastName,
+      batch: batchType(item.transaction.amount),
     }));
+};
+
+const batchType = (amount: number) => {
+  if (amount >= 1000) return "match-mvp";
+  if (amount >= 500) return "backline";
+  if (amount >= 100) return "midfield-engine";
+  if (amount >= 25) return "super-sub";
+  return "fan";
 };

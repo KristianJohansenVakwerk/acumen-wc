@@ -96,6 +96,8 @@
     if (name === "match-mvp") return matchMvp;
     return null;
   };
+
+  console.log(data);
 </script>
 
 <template>

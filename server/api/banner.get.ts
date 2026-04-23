@@ -22,25 +22,29 @@ export default defineEventHandler(async () => {
       },
     );
 
-    console.log("response", response);
     const bannerData = mapBannerData(response as any);
-    console.log("bannerData", bannerData);
+
+    console.log("banner data", bannerData);
+
     return bannerData;
   } catch (error) {
     console.error("Failed to fetch banner data", error);
     return [];
   }
-
-  return [
-    { batch: "match-mvp", name: "Name Namesen" },
-    { batch: "backline", name: "Name Namesen" },
-  ];
 });
 
 const mapBannerData = (data: any) => {
   if (!data || data.length === 0) return [];
-  return data.map((item: any) => ({
-    firstname: item.transaction.billingFirstName,
-    lastname: item.transaction.billingLastName,
-  }));
+
+  return data
+    .filter(
+      (item: any) =>
+        item?.form?.id === 49591 &&
+        item.transaction.amount > 0 &&
+        item.transaction?.billingFirstName,
+    )
+    .map((item: any) => ({
+      firstname: item.transaction.billingFirstName,
+      lastname: item.transaction.billingLastName,
+    }));
 };

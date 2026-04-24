@@ -10,26 +10,28 @@ export default defineEventHandler(async (event) => {
   }
 
   try {
+    const options = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        fields: [
+          { name: "email", value: body.email },
+          { name: "firstname", value: body.firstname ?? "" },
+          { name: "lastname", value: body.lastname ?? "" },
+        ],
+        submittedAt: String(Date.now()),
+        context: {
+          pageUri: config.public.HUBSPOT_BASE_URL,
+          pageName: config.public.HUBSPOT_PAGE_NAME,
+        },
+      }),
+    } satisfies Parameters<typeof $fetch>[1];
+
     const response = await $fetch(
       `https://api.hsforms.com/submissions/v3/integration/submit/${config.public.HUBSPOT_PORTAL_ID}/${config.public.HUBSPOT_FORM_ID}`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${config.HUBSPOT_TOKEN}`,
-        },
-        body: {
-          fields: [
-            { name: "email", value: body.email },
-            body.fname && { name: "firstname", value: body.fname },
-            body.lname && { name: "lastname", value: body.lname },
-          ].filter(Boolean),
-          context: {
-            pageUri: config.public.HUBSPOT_BASE_URL,
-            pageName: config.public.HUBSPOT_PAGE_NAME,
-          },
-        },
-      }
+      options
     );
 
     return { success: true, data: response };

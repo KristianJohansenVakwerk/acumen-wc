@@ -111,13 +111,8 @@
           },
         });
 
-        if (axis === "x") {
-          tl.to(a, { x: "-110vw", ease: "none" }, 0);
-          tl.to(b, { x: "110vw", ease: "none" }, 0);
-        } else {
-          tl.to(a, { x: "-110vw", ease: "none" }, 0);
-          tl.to(b, { x: "110vw", ease: "none" }, 0);
-        }
+        tl.to(a, { x: "-110vw", ease: "none" }, 0);
+        tl.to(b, { x: "110vw", ease: "none" }, 0);
 
         heroScrollTrigger = tl.scrollTrigger ?? null;
         return tl;
@@ -377,22 +372,25 @@
 
 <style scoped lang="scss">
   .section-hero-video {
-    aspect-ratio: 313/474;
+    aspect-ratio: 313.2/455;
     overflow: hidden;
     pointer-events: none;
+    width: calc(100% - 50px);
+    height: auto;
+    margin: 0 auto;
 
     &__layer {
       position: absolute;
       inset: 0;
       will-change: transform;
-      width: calc(100% - 50px);
+      width: calc(100%);
       margin: 0 auto;
     }
 
     &__overlay {
       position: absolute;
       width: 100%;
-      height: 62.55%;
+      height: 75.6043956044%;
       left: 0;
       top: 0;
       padding: 0 0 25px;
@@ -403,7 +401,7 @@
       position: absolute;
       left: 0;
       bottom: 0;
-      height: 55.44%;
+      height: 24.3956043956%;
       width: 100%;
       z-index: 1;
     }
@@ -435,16 +433,17 @@
         -webkit-mask-image: url("/_include/ui/video-mask-top-mobile.svg");
         mask-image: url("/_include/ui/video-mask-top-mobile.svg");
         mask-repeat: no-repeat;
-        -webkit-mask-size: 100% 62.55%;
-        mask-size: 100% 62.55%;
+        -webkit-mask-size: 100% 75.6043956044;
+        mask-size: 100% 75.6043956044%;
         mask-position: left top;
+        transform: translateY(1px);
       }
       &__2 {
         -webkit-mask-image: url("/_include/ui/video-mask-bottom-mobile.svg");
         mask-image: url("/_include/ui/video-mask-bottom-mobile.svg");
         mask-repeat: no-repeat;
-        -webkit-mask-size: 100% 55.44%;
-        mask-size: 100% 55.44%;
+        -webkit-mask-size: 100% 24.3956043956%;
+        mask-size: 100% 24.3956043956%;
         mask-position: left bottom;
       }
     }
@@ -457,6 +456,7 @@
 
     @include sm-up {
       aspect-ratio: 1307/600;
+      width: auto;
 
       &__layer {
         width: calc(100% - 64px);

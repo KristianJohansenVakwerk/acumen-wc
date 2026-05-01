@@ -114,13 +114,13 @@
           {
             "bg": "purple-dark",
             "imageBg": "orange",
-            "focusLabel": "Cropbank (WA, Ag)",
+            "focusLabel": "CropBank (WA, Ag)",
             "name": "Buffy Okeke-Ojiudu",
             "image": "/_include/images/buffy.webp",
             "role": "Founder and CEO",
             "country": "Nigeria",
             "flag": "/_include/images/Flag_of_Nigeria.svg",
-            "company": "Zebra Cropbank",
+            "company": "Zebra CropBank",
             "blurb": "In Nigeria, billions are lost after harvest, not in the field, but in storage. As founder of Zebra CropBank, Buffy Okeke-Ojiudu builds last-mile infrastructure that helps smallholder farmers store, manage, and sell their crops without forced quick sales, protecting income and building resilience.",
             "ctaText": "Learn more",
             "ctaLink": "https://acumen.org/blog/zebra-cropbanks-1960s-inspired-vision-for-nigerian-agriculture/"

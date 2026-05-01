@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import { ref } from "vue";
+  import { ref, useId } from "vue";
 
   type FormField = {
     name: string;
@@ -17,6 +17,7 @@
 
   const formData = ref<Record<string, string>>({});
   const submissionSuccess = ref(false);
+  const checkboxId = useId();
 
   const props = defineProps<{
     data: FooterFormData;
@@ -85,7 +86,7 @@
           :class="modifierClass('form__checkbox-wrapper')"
         >
           <input
-            id="checkbox"
+            :id="checkboxId"
             class="form__checkbox"
             :class="modifierClass('form__checkbox')"
             type="checkbox"
@@ -95,7 +96,7 @@
           <label
             class="form__checkbox-label"
             :class="modifierClass('form__checkbox-label')"
-            for="checkbox"
+            :for="checkboxId"
             v-html="props.checkboxText ?? data.checkbox.text"
           ></label>
         </div>

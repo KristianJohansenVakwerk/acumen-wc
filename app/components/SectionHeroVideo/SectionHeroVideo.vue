@@ -284,7 +284,7 @@
         >
           <div>
             <img
-              class="section-hero-video__icon mb-lg"
+              class="section-hero-video__icon mb-lg md:mb-md"
               src="/_include/icons/hero_icon.svg"
               :alt="title ?? ''"
             />
@@ -374,10 +374,16 @@
   .section-hero-video {
     aspect-ratio: 313.2/455;
     overflow: hidden;
-    pointer-events: none;
+    // pointer-events: none;
     width: calc(100% - 50px);
     height: auto;
     margin: 0 auto;
+
+    .text.text-heading-xl {
+      @include md-up {
+        font-size: 4vw;
+      }
+    }
 
     &__layer {
       position: absolute;
@@ -411,8 +417,8 @@
       user-select: none;
 
       &:focus-visible {
-        outline: 2px solid currentColor;
-        outline-offset: 4px;
+        outline: 2px solid transparent;
+        outline-offset: 2px;
         border-radius: 4px;
       }
     }
@@ -477,7 +483,7 @@
 
         top: 50%;
         transform: translateY(-50%);
-        padding: 0 0 40px 30px;
+        padding: 0 0 2.7vw 2vw;
       }
 
       &__overlay-right {
@@ -498,7 +504,11 @@
       }
 
       &__icon {
+        // width: 5vw;
         @include lg-up {
+          width: 15vw;
+        }
+        @include xl-up {
           width: 245px;
         }
       }

@@ -23,6 +23,28 @@ export default defineNuxtConfig({
 
   nitro: {
     preset: "cloudflare-pages",
+    routeRules: {
+      "/_include/**": {
+        headers: {
+          "cache-control":
+            "public, max-age=604800, stale-while-revalidate=86400",
+        },
+      },
+      "/fonts/**": {
+        headers: {
+          "cache-control":
+            "public, max-age=604800, stale-while-revalidate=86400",
+        },
+      },
+      "/favicon.ico": {
+        headers: { "cache-control": "public, max-age=604800" },
+      },
+      "/": {
+        headers: {
+          "cache-control": "public, max-age=300, stale-while-revalidate=86400",
+        },
+      },
+    },
   },
 
   app: {
